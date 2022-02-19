@@ -26,6 +26,9 @@ allprojects {
         ashleyVersion = '1.7.3'
         aiVersion = '1.8.2'
         gdxControllersVersion = '2.1.0'
+        //TEST
+        junitVersion = '5.8.2'
+        mockitoVersion = '2.23.4'
     }
 
     repositories {
@@ -65,5 +68,29 @@ project(":core") {
         api "com.github.czyzby:gdx-kiwi:1.9.1.9.6"
         api "de.tomgrill.gdxdialogs:gdx-dialogs-core:1.2.5"
         
+    }
+}
+
+project(":tests") {
+    apply plugin: "java"
+
+    sourceSets.test.java.srcDirs = ["src/"]
+
+    dependencies {
+
+        compile project(":core")
+
+        compile "org.junit.jupiter:junit-jupiter-api:$junitVersion"
+        compile "org.mockito:mockito-core:$mockitoVersion"
+
+        compile "com.badlogicgames.gdx:gdx-backend-headless:$gdxVersion"
+        compile "com.badlogicgames.gdx:gdx:$gdxVersion"
+
+        testCompile "org.junit.jupiter:junit-jupiter-api:$junitVersion"
+        testCompile "org.mockito:mockito-core:$mockitoVersion"
+
+        testCompile "com.badlogicgames.gdx:gdx-backend-headless:$gdxVersion"
+        testCompile "com.badlogicgames.gdx:gdx:$gdxVersion"
+        testCompile "com.badlogicgames.gdx:gdx-platform:$gdxVersion:natives-desktop"
     }
 }

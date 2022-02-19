@@ -5,7 +5,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.ScreenUtils;
 
-public class Break4jGameMainLoop extends ApplicationAdapter {
+public class Break4jGameLauncher extends ApplicationAdapter {
 	SpriteBatch batch;
 	Texture img;
 	
