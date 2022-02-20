@@ -17,18 +17,19 @@
 package com.tiem625.break4j.examples;
 
 import com.badlogic.gdx.Gdx;
-import com.tiem625.break4j.GdxTestRunner;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import com.tiem625.break4j.GdxHeadlessSupport;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.DisplayNameGeneration;
+import org.junit.jupiter.api.DisplayNameGenerator;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 
-import static org.junit.Assert.assertTrue;
+@ExtendWith(GdxHeadlessSupport.class)
+@DisplayNameGeneration(DisplayNameGenerator.ReplaceUnderscores.class)
+public class GdxFeaturesExampleTests {
 
-@RunWith(GdxTestRunner.class)
-public class AssetExistsExampleTest {
-
-	@Test
-	public void badlogicLogoFileExists() {
-		assertTrue("This test will only pass when the badlogic.jpg file coming with a new project setup has not been deleted.", Gdx.files
-				.internal("../android/assets/badlogic.jpg").exists());
-	}
+    @Test
+    public void badlogic_file_exits_at_assets_root() {
+        Assertions.assertTrue(Gdx.files.internal("badlogic.jpg").exists(), "This test will only pass when the badlogic.jpg file coming with a new project setup has not been deleted.");
+    }
 }

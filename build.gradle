@@ -80,6 +80,7 @@ project(":tests") {
 
         compile project(":core")
 
+        compile "org.junit.jupiter:junit-jupiter-engine:$junitVersion"
         compile "org.junit.jupiter:junit-jupiter-api:$junitVersion"
         compile "org.mockito:mockito-core:$mockitoVersion"
 
@@ -87,6 +88,7 @@ project(":tests") {
         compile "com.badlogicgames.gdx:gdx:$gdxVersion"
 
         testCompile "org.junit.jupiter:junit-jupiter-api:$junitVersion"
+        testCompile "org.junit.jupiter:junit-jupiter-engine:$junitVersion"
         testCompile "org.mockito:mockito-core:$mockitoVersion"
 
         testCompile "com.badlogicgames.gdx:gdx-backend-headless:$gdxVersion"
