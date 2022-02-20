@@ -78,7 +78,7 @@ project(":tests") {
 
     dependencies {
 
-        compile project(":core")
+        implementation project(":core")
 
         compile "org.junit.jupiter:junit-jupiter-engine:$junitVersion"
         compile "org.junit.jupiter:junit-jupiter-api:$junitVersion"
