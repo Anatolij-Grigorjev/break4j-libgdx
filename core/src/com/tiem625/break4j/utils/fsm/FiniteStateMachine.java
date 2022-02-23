@@ -25,7 +25,9 @@ public class FiniteStateMachine<S extends State> {
     }
 
     public FiniteStateMachine(Set<S> knownStates, StateId initialStateId) {
-        this.knownStatesCache = knownStates.stream().collect(toMap(State::getId, identity()));
+        this.knownStatesCache = knownStates.stream()
+                .peek(state -> state.ownerFsm = this)
+                .collect(toMap(State::getId, identity()));
         setState(initialStateId);
     }
 

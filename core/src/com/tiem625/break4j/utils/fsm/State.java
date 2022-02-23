@@ -29,11 +29,11 @@ public class State {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         State state = (State) o;
-        return Objects.equals(id, state.id);
+        return id.equals(state.id) && Objects.equals(ownerFsm, state.ownerFsm);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id);
+        return Objects.hash(id, ownerFsm);
     }
 }

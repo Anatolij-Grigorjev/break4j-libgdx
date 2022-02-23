@@ -4,6 +4,7 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayNameGeneration;
 import org.junit.jupiter.api.DisplayNameGenerator;
 import org.junit.jupiter.api.Test;
+import org.mockito.Mockito;
 
 import java.util.Arrays;
 import java.util.Optional;
@@ -13,6 +14,7 @@ import java.util.stream.Collectors;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.ArgumentMatchers.eq;
+import static org.mockito.Mockito.spy;
 import static org.mockito.Mockito.verify;
 
 @DisplayNameGeneration(DisplayNameGenerator.ReplaceUnderscores.class)
@@ -47,7 +49,7 @@ public class FiniteStateMachineTests {
     @Test
     public void create_fsm_set_of_states_initial_state_set_engages_lifecycle() {
 
-        var state1 = new State(testStateId1);
+        var state1 = spy(new State(testStateId1));
 
         var fsm = new FiniteStateMachine<>(Set.of(state1), state1.getId());
 
@@ -55,7 +57,7 @@ public class FiniteStateMachineTests {
         assertEquals(Optional.empty(), fsm.previousState());
         assertEquals(1, fsm.getKnownStates().size());
 
-        verify(fsm).setState(eq(state1.getId()));
+        //not testing fsm.setState call via spy because it happens in constructor
         verify(state1).enterState(eq(StateId.NONE));
     }
 
@@ -105,6 +107,7 @@ public class FiniteStateMachineTests {
     private Set<State> mockStatesSet(StateId... stateIds) {
         return Arrays.stream(stateIds)
                 .map(State::new)
+                .map(Mockito::spy)
                 .collect(Collectors.toSet());
     }
 }
