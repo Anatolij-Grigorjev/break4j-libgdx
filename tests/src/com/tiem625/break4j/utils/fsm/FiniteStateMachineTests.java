@@ -14,8 +14,7 @@ import java.util.stream.Collectors;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.ArgumentMatchers.eq;
-import static org.mockito.Mockito.spy;
-import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.*;
 
 @DisplayNameGeneration(DisplayNameGenerator.ReplaceUnderscores.class)
 public class FiniteStateMachineTests {
@@ -77,6 +76,17 @@ public class FiniteStateMachineTests {
     }
 
     @Test
+    public void fsm_no_state_process_no_states_touched() {
+
+        var states = mockStatesSet(testStateId1, testStateId2);
+        var fsm = new FiniteStateMachine<>(states);
+
+        fsm.process(1.0f);
+
+        states.forEach(state -> verify(state, never()).process(anyFloat()));
+    }
+
+    @Test
     public void fsm_3_states_follows_lifecycle() {
         var idStart = StateId.ofForm("START");
         var idProcess = StateId.ofForm("PROCESS");
@@ -96,6 +106,16 @@ public class FiniteStateMachineTests {
         verify(processState).enterState(idStart);
     }
 
+    @Test
+    public void fsm_in_state_process_ticked_state() {
+
+        var states = mockStatesSet(testStateId1, testStateId2);
+        var fsm = new FiniteStateMachine<>(states, testStateId1);
+
+        fsm.process(1.0f);
+
+        verify(fsm.lookupState(testStateId1).get()).process(eq(1.0f));
+    }
 
 
     private Set<State> mockStatesSet(String... stateIds) {

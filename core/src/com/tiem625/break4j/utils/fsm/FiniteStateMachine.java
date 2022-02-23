@@ -5,6 +5,7 @@ import java.util.Objects;
 import java.util.Optional;
 import java.util.Set;
 
+import static java.util.Optional.of;
 import static java.util.Optional.ofNullable;
 import static java.util.function.Function.identity;
 import static java.util.stream.Collectors.toMap;
@@ -29,6 +30,11 @@ public class FiniteStateMachine<S extends State> {
                 .peek(state -> state.ownerFsm = this)
                 .collect(toMap(State::getId, identity()));
         setState(initialStateId);
+    }
+
+    public void process(float delta) {
+        currentState().ifPresent(current -> current.process(delta));
+        getNextStateId(delta).ifPresent(this::setState);
     }
 
     public Optional<S> currentState() {
@@ -58,5 +64,9 @@ public class FiniteStateMachine<S extends State> {
         currentState = nextState;
         previousState().ifPresent(state -> state.exitState(nextStateId));
         currentState.enterState(previousState().map(State::getId).orElse(StateId.NONE));
+    }
+
+    protected Optional<StateId> getNextStateId(float delta) {
+        return of(StateId.NONE);
     }
 }

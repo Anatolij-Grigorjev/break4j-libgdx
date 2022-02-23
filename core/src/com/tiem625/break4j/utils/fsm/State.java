@@ -18,6 +18,9 @@ public class State {
         return id;
     }
 
+    void process(float delta) {
+    }
+
     void enterState(StateId previousStateId) {
     }
 
