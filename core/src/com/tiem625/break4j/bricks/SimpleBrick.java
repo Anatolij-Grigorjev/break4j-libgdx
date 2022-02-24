@@ -2,13 +2,34 @@ package com.tiem625.break4j.bricks;
 
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.scenes.scene2d.Actor;
+import com.tiem625.break4j.utils.fsm.State;
+
+import java.util.Optional;
+
+import static java.util.Optional.ofNullable;
 
 public class SimpleBrick extends Actor {
 
     private final BrickPosition brickPosition;
+    private final SimpleBrickFsm fsm;
 
     public SimpleBrick(BrickPosition brickPosition, Color brickColor) {
-        this.brickPosition = brickPosition;
-        setColor(brickColor);
+        this.brickPosition = ofNullable(brickPosition)
+                .orElseThrow(() -> new IllegalArgumentException("missing brickPosition!"));
+        ofNullable(brickColor).ifPresentOrElse(
+                this::setColor,
+                () -> {
+                    throw new IllegalArgumentException("missing color!");
+                }
+        );
+        this.fsm = new SimpleBrickFsm();
+    }
+
+    public Optional<State> getState() {
+        return fsm.currentState();
+    }
+
+    public BrickPosition getBrickPosition() {
+        return brickPosition;
     }
 }
