@@ -25,7 +25,7 @@ public class SimpleBrickTests {
     @Test
     public void created_brick_in_state_idle() {
 
-        var brick = new SimpleBrick(BrickPosition.ORIGIN, Color.RED);
+        var brick = new SimpleBrick(BrickPosition.ORIGIN, Color.BLUE);
         assertTrue(brick.getState().isPresent());
         assertEquals(BrickStatesIds.BRICK_IDLE, brick.getState().get().getId());
     }
@@ -33,7 +33,25 @@ public class SimpleBrickTests {
     @Test
     public void created_brick_has_assigned_color() {
 
-        var brick = new SimpleBrick(BrickPosition.ORIGIN, Color.RED);
-        assertEquals(Color.RED, brick.getColor());
+        var brick = new SimpleBrick(BrickPosition.ORIGIN, Color.YELLOW);
+        assertEquals(Color.YELLOW, brick.getColor());
+    }
+
+    @Test
+    public void brick_hit_by_ball_starts_breaking() {
+
+        var brick = new SimpleBrick(BrickPosition.ORIGIN, Color.BLUE);
+        brick.hitByBall(null);
+
+        assertEquals(BrickStatesIds.BRICK_BREAKING, brick.getState().get().getId());
+    }
+
+    @Test
+    public void brick_breaking_after_sometime_gone() {
+
+        var brick = new SimpleBrick(BrickPosition.ORIGIN, Color.YELLOW);
+        brick.hitByBall(null);
+
+        assertTrue(brick.hasActions());
     }
 }

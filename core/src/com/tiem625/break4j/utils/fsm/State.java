@@ -18,13 +18,13 @@ public class State {
         return id;
     }
 
-    void process(float delta) {
+    public void process(float delta) {
     }
 
-    void enterState(StateId previousStateId) {
+    public void enterState(StateId previousStateId) {
     }
 
-    void exitState(StateId nextStateId) {
+    public void exitState(StateId nextStateId) {
     }
 
     @Override

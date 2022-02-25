@@ -2,6 +2,7 @@ package com.tiem625.break4j.bricks;
 
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.scenes.scene2d.Actor;
+import com.tiem625.break4j.ball.Ball;
 import com.tiem625.break4j.utils.fsm.State;
 
 import java.util.Optional;
@@ -22,7 +23,13 @@ public class SimpleBrick extends Actor {
                     throw new IllegalArgumentException("missing color!");
                 }
         );
-        this.fsm = new SimpleBrickFsm();
+        this.fsm = new SimpleBrickFsm(this);
+    }
+
+    @Override
+    public void act(float delta) {
+        super.act(delta);
+        fsm.process(delta);
     }
 
     public Optional<State> getState() {
@@ -31,5 +38,9 @@ public class SimpleBrick extends Actor {
 
     public BrickPosition getBrickPosition() {
         return brickPosition;
+    }
+
+    public void hitByBall(Ball ball) {
+        fsm.setState(BrickStatesIds.BRICK_BREAKING);
     }
 }

@@ -10,13 +10,14 @@ public class BrickStatesIds {
         throw new IllegalStateException("static data");
     }
 
+    public static final StateId BRICK_BREAKING = StateId.ofForm("BrickBreaking");
     public static final StateId BRICK_IDLE = StateId.ofForm("BrickIdle");
 
 
     public static Set<StateId> asSet() {
         return Set.of(
-                BRICK_IDLE
-
+                BRICK_IDLE,
+                BRICK_BREAKING
         );
     }
 }
