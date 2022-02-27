@@ -1,8 +1,8 @@
 package com.tiem625.break4j.bricks;
 
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
-import com.tiem625.break4j.utils.fsm.State;
-import com.tiem625.break4j.utils.fsm.StateId;
+import com.tiem625.break4j.tools.fsm.State;
+import com.tiem625.break4j.tools.fsm.StateId;
 
 public class BrickBreakingState extends State {
 

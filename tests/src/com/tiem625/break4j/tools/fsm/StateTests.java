@@ -1,4 +1,4 @@
-package com.tiem625.break4j.utils.fsm;
+package com.tiem625.break4j.tools.fsm;
 
 import org.junit.jupiter.api.DisplayNameGeneration;
 import org.junit.jupiter.api.DisplayNameGenerator;

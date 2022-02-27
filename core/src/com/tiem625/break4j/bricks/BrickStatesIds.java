@@ -1,6 +1,6 @@
 package com.tiem625.break4j.bricks;
 
-import com.tiem625.break4j.utils.fsm.StateId;
+import com.tiem625.break4j.tools.fsm.StateId;
 
 import java.util.Set;
 

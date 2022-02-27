@@ -1,7 +1,7 @@
 package com.tiem625.break4j.bricks;
 
-import com.tiem625.break4j.utils.fsm.FiniteStateMachine;
-import com.tiem625.break4j.utils.fsm.State;
+import com.tiem625.break4j.tools.fsm.FiniteStateMachine;
+import com.tiem625.break4j.tools.fsm.State;
 
 import java.util.Set;
 

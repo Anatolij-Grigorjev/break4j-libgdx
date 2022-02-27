@@ -1,4 +1,4 @@
-package com.tiem625.break4j.utils;
+package com.tiem625.break4j.tools;
 
 
 import com.badlogic.gdx.Gdx;

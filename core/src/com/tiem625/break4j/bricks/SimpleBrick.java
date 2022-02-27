@@ -3,7 +3,7 @@ package com.tiem625.break4j.bricks;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.tiem625.break4j.ball.Ball;
-import com.tiem625.break4j.utils.fsm.State;
+import com.tiem625.break4j.tools.fsm.State;
 
 import java.util.Optional;
 
