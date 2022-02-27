@@ -3,6 +3,7 @@ package com.tiem625.break4j.bricks;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.tiem625.break4j.ball.Ball;
+import com.tiem625.break4j.tools.AssetsLoader;
 import com.tiem625.break4j.tools.HasAssets;
 import com.tiem625.break4j.tools.fsm.State;
 
@@ -25,6 +26,11 @@ public class SimpleBrick extends Actor implements HasAssets {
                 }
         );
         this.fsm = new SimpleBrickFsm(this);
+    }
+
+    @Override
+    public void loadEntityAssets(AssetsLoader loader) {
+        throw new UnsupportedOperationException("TODO");
     }
 
     @Override
