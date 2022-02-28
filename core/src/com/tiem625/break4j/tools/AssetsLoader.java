@@ -18,7 +18,7 @@ import java.util.function.Function;
  */
 public class AssetsLoader {
 
-    private final static Logger logger = new Logger("ASSETS-LOADER", Logger.INFO);
+    private final static Logger logger = new Logger("ASSETS-LOADER", Logger.DEBUG);
 
 
     private final Map<String, Disposable> loadedDisposableAssetsCache;

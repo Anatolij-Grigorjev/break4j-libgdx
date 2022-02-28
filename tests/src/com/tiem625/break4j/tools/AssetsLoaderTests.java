@@ -24,7 +24,7 @@ public class AssetsLoaderTests {
     @Test
     public void load_internal_texture_added_to_dispose_cache() {
 
-        Optional<Texture> foundTexture = assetsLoader.loadInternalDisposable("badlogic.jpg", Texture::new);
+        Optional<Texture> foundTexture = assetsLoader.loadInternalDisposable("brick.png", Texture::new);
 
         Assertions.assertTrue(foundTexture.isPresent());
         Assertions.assertEquals(1, assetsLoader.getDisposableAssetsSet().size());
@@ -43,8 +43,8 @@ public class AssetsLoaderTests {
     @Test
     public void load_internal_texture_cached_load_again_uses_cache() {
 
-        Optional<Texture> foundTexture = assetsLoader.loadInternalDisposable("badlogic.jpg", Texture::new);
-        Optional<Texture> foundSameTexture = assetsLoader.loadInternalDisposable("badlogic.jpg", Texture::new);
+        Optional<Texture> foundTexture = assetsLoader.loadInternalDisposable("brick.png", Texture::new);
+        Optional<Texture> foundSameTexture = assetsLoader.loadInternalDisposable("brick.png", Texture::new);
 
         Assertions.assertTrue(foundSameTexture.isPresent());
         var headlessCounter = (GdxFilesHeadlessSpy) Gdx.files;
