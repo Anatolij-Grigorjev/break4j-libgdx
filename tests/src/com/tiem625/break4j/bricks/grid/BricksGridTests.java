@@ -34,13 +34,15 @@ public class BricksGridTests {
                 new BricksGrid(ScreenPosition.at(250, 650),
                         GridDimensions.rowsAndCols(2, 2))
         );
-        assertEquals(0L, bricksGrid.bricks().count());
+        assertEquals(0, bricksGrid.getCurrentNumBricks());
     }
 
     @Test
     public void create_grid_add_brick_has_brick() {
 
         var bricksGrid = new BricksGrid(ScreenPosition.at(250, 650), GridDimensions.COLLAPSED);
-        bricksGrid.setBrick(new SimpleBrick(BrickPosition.ORIGIN, Color.BLUE));
+        bricksGrid.setBrick(BrickPosition.ORIGIN, new SimpleBrick(Color.BLUE));
+
+        assertEquals(1, bricksGrid.getCurrentNumBricks());
     }
 }

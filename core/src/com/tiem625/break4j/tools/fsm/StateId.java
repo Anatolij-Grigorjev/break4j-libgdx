@@ -2,7 +2,7 @@ package com.tiem625.break4j.tools.fsm;
 
 import java.util.Objects;
 
-import static java.util.Optional.ofNullable;
+import static com.tiem625.break4j.tools.Verifiers.verifiedNotNull;
 
 public class StateId {
 
@@ -15,9 +15,7 @@ public class StateId {
     }
 
     public static StateId ofForm(String id) {
-        return ofNullable(id)
-                .map(StateId::new)
-                .orElseThrow(() -> new IllegalArgumentException("Cannot create state with null id"));
+        return new StateId(verifiedNotNull(id));
     }
 
     public String serialized() {

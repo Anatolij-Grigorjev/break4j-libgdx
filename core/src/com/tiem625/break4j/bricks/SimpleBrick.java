@@ -9,22 +9,14 @@ import com.tiem625.break4j.tools.fsm.State;
 
 import java.util.Optional;
 
-import static java.util.Optional.ofNullable;
+import static com.tiem625.break4j.tools.Verifiers.verifiedNotNull;
 
 public class SimpleBrick extends Actor implements HasAssets {
 
-    private final BrickPosition brickPosition;
     private final SimpleBrickFsm fsm;
 
-    public SimpleBrick(BrickPosition brickPosition, Color brickColor) {
-        this.brickPosition = ofNullable(brickPosition)
-                .orElseThrow(() -> new IllegalArgumentException("missing brickPosition!"));
-        ofNullable(brickColor).ifPresentOrElse(
-                this::setColor,
-                () -> {
-                    throw new IllegalArgumentException("missing color!");
-                }
-        );
+    public SimpleBrick(Color brickColor) {
+        this.setColor(verifiedNotNull(brickColor));
         this.fsm = new SimpleBrickFsm(this);
     }
 
@@ -41,10 +33,6 @@ public class SimpleBrick extends Actor implements HasAssets {
 
     public Optional<State> getState() {
         return fsm.currentState();
-    }
-
-    public BrickPosition getBrickPosition() {
-        return brickPosition;
     }
 
     public void hitByBall(Ball ball) {
