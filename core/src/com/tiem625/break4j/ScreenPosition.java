@@ -1,5 +1,7 @@
 package com.tiem625.break4j;
 
+import java.util.Objects;
+
 public class ScreenPosition {
 
     public static final ScreenPosition ORIGIN = new ScreenPosition(0, 0);
@@ -14,5 +16,26 @@ public class ScreenPosition {
     private ScreenPosition(int x, int y) {
         this.x = x;
         this.y = y;
+    }
+
+    public int getX() {
+        return x;
+    }
+
+    public int getY() {
+        return y;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        ScreenPosition that = (ScreenPosition) o;
+        return x == that.x && y == that.y;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(x, y);
     }
 }
