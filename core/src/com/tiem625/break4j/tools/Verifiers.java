@@ -11,4 +11,11 @@ public class Verifiers {
     public static <T> T verifiedNotNull(T arg) {
         return Optional.ofNullable(arg).orElseThrow(IllegalArgumentException::new);
     }
+
+    public static int verifyNotNegative(int num) {
+        if (num < 0) {
+            throw new IllegalArgumentException("number was below zero: " + num);
+        }
+        return num;
+    }
 }

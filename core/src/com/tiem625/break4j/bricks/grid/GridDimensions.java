@@ -2,6 +2,8 @@ package com.tiem625.break4j.bricks.grid;
 
 import java.util.Objects;
 
+import static com.tiem625.break4j.tools.Verifiers.verifyNotNegative;
+
 public class GridDimensions {
 
     public static final GridDimensions COLLAPSED = new GridDimensions(0, 0);
@@ -9,10 +11,7 @@ public class GridDimensions {
     private final int numCols;
 
     public static GridDimensions rowsAndCols(int numRows, int numCols) {
-        if (numRows < 0 || numCols < 0) {
-            throw new IllegalArgumentException("supplied rows or cols num was less than 0!");
-        }
-        return new GridDimensions(numRows, numCols);
+        return new GridDimensions(verifyNotNegative(numRows), verifyNotNegative(numCols));
     }
 
     private GridDimensions(int numRows, int numCols) {
