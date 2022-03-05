@@ -5,6 +5,7 @@ import com.tiem625.break4j.bricks.GridPosition;
 import com.tiem625.break4j.bricks.SimpleBrick;
 
 import java.util.Map;
+import java.util.Optional;
 import java.util.concurrent.ConcurrentHashMap;
 
 import static com.tiem625.break4j.tools.Verifiers.verifiedNotNull;
@@ -13,8 +14,7 @@ import static java.lang.String.format;
 public class BricksGrid extends Group {
 
     private final GridDimensions gridSize;
-
-    Map<GridPosition, SimpleBrick> bricksInGrid;
+    private final Map<GridPosition, SimpleBrick> bricksInGrid;
 
     public BricksGrid(GridDimensions gridSize) {
 
@@ -32,5 +32,9 @@ public class BricksGrid extends Group {
         }
         bricksInGrid.put(gridPosition, brick);
         addActor(brick);
+    }
+
+    public Optional<SimpleBrick> checkBrickAt(GridPosition position) {
+        return Optional.ofNullable(bricksInGrid.get(position));
     }
 }

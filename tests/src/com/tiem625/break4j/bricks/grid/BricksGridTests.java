@@ -35,6 +35,18 @@ public class BricksGridTests {
         bricksGrid.setBrick(GridPosition.ORIGIN, new SimpleBrick(Color.BLUE));
 
         assertEquals(1, bricksGrid.getCurrentNumBricks());
+        assertTrue(bricksGrid.checkBrickAt(GridPosition.ORIGIN).isPresent());
+    }
+
+    @Test
+    public void create_grid_add_brick_add_another_same_position_only_one_brick() {
+
+        var bricksGrid = new BricksGrid(GridDimensions.rowsAndCols(4, 4));
+        bricksGrid.setBrick(GridPosition.ORIGIN, new SimpleBrick(Color.BLUE));
+        bricksGrid.setBrick(GridPosition.ORIGIN, new SimpleBrick(Color.YELLOW));
+
+        assertEquals(1, bricksGrid.getCurrentNumBricks());
+        assertEquals(Color.YELLOW, bricksGrid.checkBrickAt(GridPosition.ORIGIN).get().getColor());
     }
 
     @Test
