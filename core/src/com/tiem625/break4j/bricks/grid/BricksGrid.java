@@ -1,35 +1,36 @@
 package com.tiem625.break4j.bricks.grid;
 
 import com.badlogic.gdx.scenes.scene2d.Group;
-import com.tiem625.break4j.ScreenPosition;
-import com.tiem625.break4j.bricks.BrickPosition;
+import com.tiem625.break4j.bricks.GridPosition;
 import com.tiem625.break4j.bricks.SimpleBrick;
 
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
 import static com.tiem625.break4j.tools.Verifiers.verifiedNotNull;
+import static java.lang.String.format;
 
 public class BricksGrid extends Group {
 
-    private final ScreenPosition screenCoords;
-    private final GridDimensions dimensions;
+    private final GridDimensions gridSize;
 
-    Map<BrickPosition, SimpleBrick> bricksInGrid;
+    Map<GridPosition, SimpleBrick> bricksInGrid;
 
-    public BricksGrid(ScreenPosition gridScreenCoords, GridDimensions dimensions) {
+    public BricksGrid(GridDimensions gridSize) {
 
-        this.screenCoords = verifiedNotNull(gridScreenCoords);
-        this.dimensions = verifiedNotNull(dimensions);
-
+        this.gridSize = verifiedNotNull(gridSize);
         this.bricksInGrid = new ConcurrentHashMap<>();
     }
 
     public int getCurrentNumBricks() {
-        return getChildren().size;
+        return bricksInGrid.size();
     }
 
-    public void setBrick(BrickPosition origin, SimpleBrick simpleBrick) {
-        addActor(simpleBrick);
+    public void setBrick(GridPosition gridPosition, SimpleBrick brick) {
+        if (gridSize.isOutOfBounds(gridPosition)) {
+            throw new IllegalArgumentException(format("position %s is out of bounds for grid of size %s!", gridPosition, gridSize));
+        }
+        bricksInGrid.put(gridPosition, brick);
+        addActor(brick);
     }
 }

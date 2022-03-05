@@ -1,8 +1,11 @@
 package com.tiem625.break4j.bricks.grid;
 
+import com.tiem625.break4j.bricks.GridPosition;
+
 import java.util.Objects;
 
 import static com.tiem625.break4j.tools.Verifiers.verifyNotNegative;
+import static java.lang.String.format;
 
 public class GridDimensions {
 
@@ -38,5 +41,14 @@ public class GridDimensions {
     @Override
     public int hashCode() {
         return Objects.hash(numRows, numCols);
+    }
+
+    @Override
+    public String toString() {
+        return format("[%s x %s]", numRows, numCols);
+    }
+
+    public boolean isOutOfBounds(GridPosition gridPosition) {
+        return gridPosition.row() >= numRows || gridPosition.col() >= numCols;
     }
 }
