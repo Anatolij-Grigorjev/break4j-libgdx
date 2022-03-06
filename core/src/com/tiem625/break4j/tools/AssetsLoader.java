@@ -21,13 +21,9 @@ public class AssetsLoader {
     private final static Logger logger = new Logger("ASSETS-LOADER", Logger.DEBUG);
 
 
-    private final Map<String, Disposable> loadedDisposableAssetsCache;
+    private final static Map<String, Disposable> loadedDisposableAssetsCache = new ConcurrentHashMap<>();
 
-    public AssetsLoader() {
-        loadedDisposableAssetsCache = new ConcurrentHashMap<>();
-    }
-
-    public <A extends Disposable> Optional<A> loadInternalDisposable(
+    public static <A extends Disposable> Optional<A> loadInternalDisposable(
             String internalPath, Function<FileHandle, A> disposableLoader
     ) {
         if (loadedDisposableAssetsCache.containsKey(internalPath)) {
@@ -46,7 +42,13 @@ public class AssetsLoader {
         }
     }
 
-    public Set<Disposable> getDisposableAssetsSet() {
+    public static Set<Disposable> getDisposableAssetsSet() {
         return new HashSet<>(loadedDisposableAssetsCache.values());
+    }
+
+    public static void disposeCachedAssets() {
+        logger.info("Disposing " + loadedDisposableAssetsCache.size() + " asset(-s)!");
+        loadedDisposableAssetsCache.values().forEach(Disposable::dispose);
+        loadedDisposableAssetsCache.clear();
     }
 }

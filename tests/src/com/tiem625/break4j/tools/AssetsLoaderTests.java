@@ -14,37 +14,35 @@ import java.util.Optional;
 @DisplayNameGeneration(DisplayNameGenerator.ReplaceUnderscores.class)
 public class AssetsLoaderTests {
 
-    private AssetsLoader assetsLoader;
-
-    @BeforeEach
-    public void setupAssetsLoader() {
-        assetsLoader = new AssetsLoader();
+    @AfterEach
+    public void disposeCachedAssets() {
+        AssetsLoader.disposeCachedAssets();
     }
 
     @Test
     public void load_internal_texture_added_to_dispose_cache() {
 
-        Optional<Texture> foundTexture = assetsLoader.loadInternalDisposable("brick.png", Texture::new);
+        Optional<Texture> foundTexture = AssetsLoader.loadInternalDisposable("brick.png", Texture::new);
 
         Assertions.assertTrue(foundTexture.isPresent());
-        Assertions.assertEquals(1, assetsLoader.getDisposableAssetsSet().size());
-        Assertions.assertTrue(assetsLoader.getDisposableAssetsSet().contains(foundTexture.get()));
+        Assertions.assertEquals(1, AssetsLoader.getDisposableAssetsSet().size());
+        Assertions.assertTrue(AssetsLoader.getDisposableAssetsSet().contains(foundTexture.get()));
     }
 
     @Test
     public void load_internal_texture_missing_empty_load() {
 
-        Optional<Texture> loadTexture = assetsLoader.loadInternalDisposable("missing", Texture::new);
+        Optional<Texture> loadTexture = AssetsLoader.loadInternalDisposable("missing", Texture::new);
 
         Assertions.assertTrue(loadTexture.isEmpty());
-        Assertions.assertEquals(0, assetsLoader.getDisposableAssetsSet().size());
+        Assertions.assertEquals(0, AssetsLoader.getDisposableAssetsSet().size());
     }
 
     @Test
     public void load_internal_texture_cached_load_again_uses_cache() {
 
-        Optional<Texture> foundTexture = assetsLoader.loadInternalDisposable("brick.png", Texture::new);
-        Optional<Texture> foundSameTexture = assetsLoader.loadInternalDisposable("brick.png", Texture::new);
+        Optional<Texture> foundTexture = AssetsLoader.loadInternalDisposable("brick.png", Texture::new);
+        Optional<Texture> foundSameTexture = AssetsLoader.loadInternalDisposable("brick.png", Texture::new);
 
         Assertions.assertTrue(foundSameTexture.isPresent());
         var headlessCounter = (GdxFilesHeadlessSpy) Gdx.files;
