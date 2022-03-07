@@ -1,4 +1,4 @@
-package com.tiem625.break4j.bricks;
+package com.tiem625.break4j.model.bricks;
 
 import com.tiem625.break4j.tools.fsm.State;
 import com.tiem625.break4j.tools.fsm.StateId;

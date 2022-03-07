@@ -1,4 +1,4 @@
-package com.tiem625.break4j.bricks;
+package com.tiem625.break4j.gdx.bricks;
 
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;

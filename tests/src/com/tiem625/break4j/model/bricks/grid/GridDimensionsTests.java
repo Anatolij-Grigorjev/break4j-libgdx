@@ -1,4 +1,4 @@
-package com.tiem625.break4j.bricks.grid;
+package com.tiem625.break4j.model.bricks.grid;
 
 import org.junit.jupiter.api.DisplayNameGeneration;
 import org.junit.jupiter.api.DisplayNameGenerator;

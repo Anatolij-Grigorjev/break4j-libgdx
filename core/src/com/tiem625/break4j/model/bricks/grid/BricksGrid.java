@@ -1,7 +1,7 @@
-package com.tiem625.break4j.bricks.grid;
+package com.tiem625.break4j.model.bricks.grid;
 
-import com.tiem625.break4j.bricks.GridPosition;
-import com.tiem625.break4j.bricks.SimpleBrick;
+import com.tiem625.break4j.model.bricks.GridPosition;
+import com.tiem625.break4j.model.bricks.SimpleBrick;
 
 import java.util.Map;
 import java.util.Optional;
