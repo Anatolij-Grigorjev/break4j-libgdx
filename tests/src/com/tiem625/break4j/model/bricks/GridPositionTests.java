@@ -1,5 +1,6 @@
 package com.tiem625.break4j.model.bricks;
 
+import com.tiem625.break4j.model.grid.GridPosition;
 import org.junit.jupiter.api.DisplayNameGeneration;
 import org.junit.jupiter.api.DisplayNameGenerator;
 import org.junit.jupiter.api.Test;

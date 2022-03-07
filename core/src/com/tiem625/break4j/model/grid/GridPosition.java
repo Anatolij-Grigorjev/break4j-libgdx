@@ -1,4 +1,4 @@
-package com.tiem625.break4j.model.bricks;
+package com.tiem625.break4j.model.grid;
 
 import java.util.Objects;
 

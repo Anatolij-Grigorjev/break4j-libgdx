@@ -1,6 +1,4 @@
-package com.tiem625.break4j.model.bricks.grid;
-
-import com.tiem625.break4j.model.bricks.GridPosition;
+package com.tiem625.break4j.model.grid;
 
 import java.util.Objects;
 
