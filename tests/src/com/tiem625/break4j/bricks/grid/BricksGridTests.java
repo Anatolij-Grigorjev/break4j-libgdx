@@ -1,6 +1,5 @@
 package com.tiem625.break4j.bricks.grid;
 
-import com.badlogic.gdx.graphics.Color;
 import com.tiem625.break4j.bricks.GridPosition;
 import com.tiem625.break4j.bricks.SimpleBrick;
 import org.junit.jupiter.api.DisplayNameGeneration;
@@ -32,7 +31,7 @@ public class BricksGridTests {
     public void create_grid_add_brick_has_brick() {
 
         var bricksGrid = new BricksGrid(GridDimensions.rowsAndCols(1, 1));
-        bricksGrid.setBrick(GridPosition.ORIGIN, new SimpleBrick(Color.BLUE));
+        bricksGrid.setBrick(GridPosition.ORIGIN, new SimpleBrick());
 
         assertEquals(1, bricksGrid.getCurrentNumBricks());
         assertTrue(bricksGrid.checkBrickAt(GridPosition.ORIGIN).isPresent());
@@ -42,11 +41,13 @@ public class BricksGridTests {
     public void create_grid_add_brick_add_another_same_position_only_one_brick() {
 
         var bricksGrid = new BricksGrid(GridDimensions.rowsAndCols(4, 4));
-        bricksGrid.setBrick(GridPosition.ORIGIN, new SimpleBrick(Color.BLUE));
-        bricksGrid.setBrick(GridPosition.ORIGIN, new SimpleBrick(Color.YELLOW));
+        SimpleBrick brick1 = new SimpleBrick();
+        SimpleBrick brick2 = new SimpleBrick();
+        bricksGrid.setBrick(GridPosition.ORIGIN, brick1);
+        bricksGrid.setBrick(GridPosition.ORIGIN, brick2);
 
         assertEquals(1, bricksGrid.getCurrentNumBricks());
-        assertEquals(Color.YELLOW, bricksGrid.checkBrickAt(GridPosition.ORIGIN).get().getColor());
+        assertEquals(brick2, bricksGrid.checkBrickAt(GridPosition.ORIGIN).get());
     }
 
     @Test
@@ -54,6 +55,6 @@ public class BricksGridTests {
 
         var bricksGrid = new BricksGrid(GridDimensions.COLLAPSED);
         assertThrows(IllegalArgumentException.class,
-                () -> bricksGrid.setBrick(GridPosition.atGridOffset(5, 7), new SimpleBrick(Color.YELLOW)));
+                () -> bricksGrid.setBrick(GridPosition.atGridOffset(5, 7), new SimpleBrick()));
     }
 }

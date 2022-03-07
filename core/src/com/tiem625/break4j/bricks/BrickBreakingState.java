@@ -1,6 +1,5 @@
 package com.tiem625.break4j.bricks;
 
-import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.tiem625.break4j.tools.fsm.State;
 import com.tiem625.break4j.tools.fsm.StateId;
 
@@ -16,9 +15,6 @@ public class BrickBreakingState extends State {
 
     @Override
     public void enterState(StateId previousStateId) {
-        entity.addAction(Actions.sequence(
-                Actions.delay(BRICK_BREAKING_DURATION),
-                Actions.removeActor()
-        ));
+
     }
 }
