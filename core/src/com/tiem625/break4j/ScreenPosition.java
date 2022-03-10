@@ -26,6 +26,10 @@ public class ScreenPosition {
         return y;
     }
 
+    public ScreenPosition offsetBy(ScreenPosition offset) {
+        return ScreenPosition.at(x + offset.x, y + offset.y);
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

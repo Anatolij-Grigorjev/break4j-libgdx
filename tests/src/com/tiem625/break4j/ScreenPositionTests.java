@@ -19,4 +19,9 @@ public class ScreenPositionTests {
     public void position_objects_same_coords_equal() {
         assertEquals(ScreenPosition.at(90, 78), ScreenPosition.at(90, 78));
     }
+
+    @Test
+    public void position_adjusted_by_position_adds_them() {
+        assertEquals(ScreenPosition.at(5, 10), ScreenPosition.ORIGIN.offsetBy(ScreenPosition.at(5, 10)));
+    }
 }

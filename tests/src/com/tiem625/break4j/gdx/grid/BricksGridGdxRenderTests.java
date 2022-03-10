@@ -43,12 +43,26 @@ public class BricksGridGdxRenderTests {
     }
 
     @Test
+    public void create_grid_set_properties_present() {
+        BricksGridGdxRender render = BricksGridGdxRender.forModel(new BricksGrid(GridDimensions.COLLAPSED))
+                .atPosition(ScreenPosition.at(100, 100))
+                .withHorizontalGap(5)
+                .withVerticalGap(10)
+                .render();
+
+        assertEquals(100f, render.getY());
+        assertEquals(100f, render.getX());
+        assertEquals(5, render.getHorizontalGap());
+        assertEquals(10, render.getVerticalGap());
+    }
+
+    @Test
     public void create_grid_render_model_has_bricks_render_has_same_bricks() {
 
         var modelGrid = new BricksGrid(GridDimensions.rowsAndCols(1, 1));
         modelGrid.setBrick(GridPosition.ORIGIN, new SimpleBrick());
 
-        var gridRender = new BricksGridGdxRender(modelGrid, ScreenPosition.ORIGIN);
+        var gridRender = BricksGridGdxRender.forModel(modelGrid).render();
         assertEquals(modelGrid.getCurrentNumBricks(), gridRender.getCurrentBricksLandscape().size());
     }
 }
