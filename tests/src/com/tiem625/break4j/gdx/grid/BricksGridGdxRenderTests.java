@@ -76,4 +76,18 @@ public class BricksGridGdxRenderTests {
 
         assertEquals(2, gridRender.getCurrentBricksLandscape().size());
     }
+
+    @Test
+    public void create_grid_render_model_remove_brick_later_render_also_removes_brick() {
+
+        var modelGrid = new BricksGrid(GridDimensions.rowsAndCols(1, 2));
+        modelGrid.setBrick(GridPosition.atGridOffset(0, 0), new SimpleBrick());
+        modelGrid.setBrick(GridPosition.atGridOffset(0, 1), new SimpleBrick());
+
+        var gridRender = BricksGridGdxRender.forModel(modelGrid).render();
+        modelGrid.removeBrick(GridPosition.atGridOffset(0, 0));
+        modelGrid.removeBrick(GridPosition.atGridOffset(0, 1));
+
+        assertEquals(0, gridRender.getCurrentBricksLandscape().size());
+    }
 }
