@@ -25,13 +25,24 @@ public class BricksGrid {
     }
 
     public void setBrick(GridPosition gridPosition, SimpleBrick brick) {
-        if (gridSize.isOutOfBounds(gridPosition)) {
-            throw new IllegalArgumentException(format("position %s is out of bounds for grid of size %s!", gridPosition, gridSize));
-        }
+        verifyGridPositionNotOutOfBounds(verifiedNotNull(gridPosition));
         bricksInGrid.put(gridPosition, brick);
     }
 
     public Optional<SimpleBrick> checkBrickAt(GridPosition position) {
-        return Optional.ofNullable(bricksInGrid.get(position));
+        return Optional.of(verifiedNotNull(position))
+                .map(bricksInGrid::get);
+    }
+
+    public Optional<SimpleBrick> removeBrick(GridPosition position) {
+        verifyGridPositionNotOutOfBounds(verifiedNotNull(position));
+        return Optional.of(verifiedNotNull(position))
+                .map(bricksInGrid::remove);
+    }
+
+    private void verifyGridPositionNotOutOfBounds(GridPosition gridPosition) {
+        if (gridSize.isOutOfBounds(gridPosition)) {
+            throw new IllegalArgumentException(format("position %s is out of bounds for grid of size %s!", gridPosition, gridSize));
+        }
     }
 }

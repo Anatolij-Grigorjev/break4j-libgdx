@@ -65,4 +65,15 @@ public class BricksGridGdxRenderTests {
         var gridRender = BricksGridGdxRender.forModel(modelGrid).render();
         assertEquals(modelGrid.getCurrentNumBricks(), gridRender.getCurrentBricksLandscape().size());
     }
+
+    @Test
+    public void create_grid_render_model_add_bricks_later_render_has_new_bricks() {
+
+        var modelGrid = new BricksGrid(GridDimensions.rowsAndCols(1, 2));
+        modelGrid.setBrick(GridPosition.ORIGIN, new SimpleBrick());
+        var gridRender = BricksGridGdxRender.forModel(modelGrid).render();
+        modelGrid.setBrick(GridPosition.atGridOffset(0, 1), new SimpleBrick());
+
+        assertEquals(2, gridRender.getCurrentBricksLandscape().size());
+    }
 }

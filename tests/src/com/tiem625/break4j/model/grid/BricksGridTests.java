@@ -5,6 +5,8 @@ import org.junit.jupiter.api.DisplayNameGeneration;
 import org.junit.jupiter.api.DisplayNameGenerator;
 import org.junit.jupiter.api.Test;
 
+import java.util.Optional;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 @DisplayNameGeneration(DisplayNameGenerator.ReplaceUnderscores.class)
@@ -55,5 +57,48 @@ public class BricksGridTests {
         var bricksGrid = new BricksGrid(GridDimensions.COLLAPSED);
         assertThrows(IllegalArgumentException.class,
                 () -> bricksGrid.setBrick(GridPosition.atGridOffset(5, 7), new SimpleBrick()));
+    }
+
+    @Test
+    public void create_grid_set_brick_null_position_illegal() {
+
+        var bricksGrid = new BricksGrid(GridDimensions.COLLAPSED);
+        assertThrows(IllegalArgumentException.class,
+                () -> bricksGrid.setBrick(null, new SimpleBrick()));
+    }
+
+    @Test
+    public void create_grid_no_bricks_remove_brick_empty_removal() {
+
+        var bricksGrid = new BricksGrid(GridDimensions.rowsAndCols(1, 1));
+        Optional<SimpleBrick> cachedRemovedBrick = bricksGrid.removeBrick(GridPosition.ORIGIN);
+
+        assertTrue(cachedRemovedBrick.isEmpty());
+    }
+
+    @Test
+    public void create_grid_add_brick_remove_brick_present() {
+
+        var bricksGrid = new BricksGrid(GridDimensions.rowsAndCols(1, 1));
+        bricksGrid.setBrick(GridPosition.ORIGIN, new SimpleBrick());
+
+        Optional<SimpleBrick> cachedRemovedBrick = bricksGrid.removeBrick(GridPosition.ORIGIN);
+        assertTrue(cachedRemovedBrick.isPresent());
+        assertEquals(0, bricksGrid.getCurrentNumBricks());
+    }
+
+    @Test
+    public void create_grid_remove_brick_out_of_bounds_throws() {
+
+        var bricksGrid = new BricksGrid(GridDimensions.COLLAPSED);
+        assertThrows(IllegalArgumentException.class,
+                () -> bricksGrid.removeBrick(GridPosition.atGridOffset(5, 7)));
+    }
+
+    @Test
+    public void create_grid_remove_brick_null_position_not_allowed() {
+
+        var bricksGrid = new BricksGrid(GridDimensions.COLLAPSED);
+        assertThrows(IllegalArgumentException.class, () -> bricksGrid.removeBrick(null));
     }
 }
