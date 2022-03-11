@@ -4,8 +4,7 @@ import org.junit.jupiter.api.DisplayNameGeneration;
 import org.junit.jupiter.api.DisplayNameGenerator;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 
 @DisplayNameGeneration(DisplayNameGenerator.ReplaceUnderscores.class)
 public class SimpleBrickTests {
@@ -14,6 +13,8 @@ public class SimpleBrickTests {
     public void created_brick_in_state_idle() {
 
         var brick = new SimpleBrick();
+
+        assertNotNull(brick.getId());
         assertTrue(brick.getState().isPresent());
         assertEquals(BrickStatesIds.BRICK_IDLE, brick.getState().get().getId());
     }
