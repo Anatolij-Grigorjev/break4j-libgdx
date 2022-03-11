@@ -1,6 +1,7 @@
 package com.tiem625.break4j;
 
 import java.util.Objects;
+import java.util.Optional;
 
 public class ScreenPosition {
 
@@ -27,7 +28,9 @@ public class ScreenPosition {
     }
 
     public ScreenPosition offsetBy(ScreenPosition offset) {
-        return ScreenPosition.at(x + offset.x, y + offset.y);
+        return Optional.ofNullable(offset)
+                .map(presentOffset -> ScreenPosition.at(x + presentOffset.x, y + presentOffset.y))
+                .orElse(this);
     }
 
     @Override

@@ -21,7 +21,13 @@ public class ScreenPositionTests {
     }
 
     @Test
-    public void position_adjusted_by_position_adds_them() {
-        assertEquals(ScreenPosition.at(5, 10), ScreenPosition.ORIGIN.offsetBy(ScreenPosition.at(5, 10)));
+    public void position_offset_by_position_adds_coordinates() {
+        assertEquals(ScreenPosition.at(5, 10), ScreenPosition.at(1, 2).offsetBy(ScreenPosition.at(4, 8)));
     }
+
+    @Test
+    public void position_offset_by_null_same_position() {
+        assertEquals(ScreenPosition.ORIGIN, ScreenPosition.ORIGIN.offsetBy(null));
+    }
+
 }
