@@ -6,6 +6,7 @@ import com.tiem625.break4j.gdx.bricks.BrickGdxRender;
 import com.tiem625.break4j.model.grid.BricksGrid;
 
 import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 
 import static com.tiem625.break4j.tools.Verifiers.verifiedNotNull;
 
@@ -35,24 +36,25 @@ public class BricksGridGdxRender extends Group {
     }
 
     public int getVerticalGap() {
-        return 0;
+        return bricksVerticalGap;
     }
 
     public int getHorizontalGap() {
-        return 0;
+        return bricksHorizontalGap;
     }
 
     public class BricksLandscape {
 
-        private final Map<ScreenPosition, BrickGdxRender> gridBricksPositions = null;
+        private final Map<ScreenPosition, BrickGdxRender> gridBricksPositions;
 
         private BricksLandscape() {
             var gridRender = BricksGridGdxRender.this;
+            this.gridBricksPositions = new ConcurrentHashMap<>();
 
         }
 
         public int size() {
-            return 0;
+            return gridBricksPositions.size();
         }
     }
 
@@ -70,10 +72,6 @@ public class BricksGridGdxRender extends Group {
             this.bricksHorizontalGap = 0;
         }
 
-        public BricksGridGdxRender render() {
-            throw new UnsupportedOperationException("TODO");
-        }
-
         public BricksGridRendering atPosition(ScreenPosition screenPosition) {
             this.gridPosition = screenPosition;
             return this;
@@ -87,6 +85,10 @@ public class BricksGridGdxRender extends Group {
         public BricksGridRendering withHorizontalGap(int gap) {
             this.bricksHorizontalGap = gap;
             return this;
+        }
+
+        public BricksGridGdxRender render() {
+            return new BricksGridGdxRender(model, gridPosition, bricksVerticalGap, bricksHorizontalGap);
         }
     }
 }
