@@ -6,6 +6,7 @@ import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.tiem625.break4j.ObjectSize;
 import com.tiem625.break4j.model.bricks.SimpleBrick;
 import com.tiem625.break4j.tools.AssetsLoader;
+import com.tiem625.break4j.tools.objectId.OId;
 
 import static com.tiem625.break4j.tools.Verifiers.verifiedNotNull;
 
@@ -32,5 +33,9 @@ public class BrickGdxRender extends Actor {
 
     public ObjectSize brickSize() {
         return BRICK_ONSCREEN_SIZE;
+    }
+
+    public OId getModelId() {
+        return model.getId();
     }
 }

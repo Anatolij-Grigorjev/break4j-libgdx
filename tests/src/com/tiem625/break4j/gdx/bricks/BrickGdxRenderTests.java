@@ -42,4 +42,13 @@ public class BrickGdxRenderTests {
         assertEquals(BrickGdxRender.BRICK_ONSCREEN_SIZE, brickRender.brickSize());
     }
 
+    @Test
+    public void create_brick_render_has_model_id() {
+
+        var model = new SimpleBrick();
+        var render = new BrickGdxRender(model, Color.WHITE);
+
+        assertEquals(render.getModelId(), model.getId());
+    }
+
 }
