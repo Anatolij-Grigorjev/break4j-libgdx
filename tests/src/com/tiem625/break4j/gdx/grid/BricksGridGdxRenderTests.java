@@ -35,7 +35,7 @@ public class BricksGridGdxRenderTests {
     @Test
     public void create_grid_render_no_set_gaps_default_0() {
         BricksGridGdxRender render = BricksGridGdxRender.forModel(new BricksGrid(GridDimensions.COLLAPSED))
-                .atPosition(ScreenPosition.at(100, 100))
+                .centeredAt(ScreenPosition.at(100, 100))
                 .render();
 
         assertEquals(0, render.getVerticalGap());
@@ -45,7 +45,7 @@ public class BricksGridGdxRenderTests {
     @Test
     public void create_grid_set_properties_present() {
         BricksGridGdxRender render = BricksGridGdxRender.forModel(new BricksGrid(GridDimensions.COLLAPSED))
-                .atPosition(ScreenPosition.at(100, 100))
+                .centeredAt(ScreenPosition.at(100, 100))
                 .withHorizontalGap(5)
                 .withVerticalGap(10)
                 .render();

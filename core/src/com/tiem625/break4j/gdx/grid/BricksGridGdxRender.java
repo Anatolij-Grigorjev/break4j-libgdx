@@ -1,11 +1,12 @@
 package com.tiem625.break4j.gdx.grid;
 
 import com.badlogic.gdx.scenes.scene2d.Group;
+import com.tiem625.break4j.ObjectSize;
 import com.tiem625.break4j.ScreenPosition;
 import com.tiem625.break4j.gdx.bricks.BrickGdxRender;
 import com.tiem625.break4j.model.grid.BricksGrid;
 
-import java.util.Map;
+import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 
 import static com.tiem625.break4j.tools.Verifiers.verifiedNotNull;
@@ -13,18 +14,20 @@ import static com.tiem625.break4j.tools.Verifiers.verifiedNotNull;
 public class BricksGridGdxRender extends Group {
 
     private final BricksGrid model;
-    private final ScreenPosition screenPosition;
+    private final ScreenPosition centerPosition;
+    private final ObjectSize gridScreenSize;
     private final int bricksVerticalGap;
     private final int bricksHorizontalGap;
 
-    private BricksGridGdxRender(BricksGrid model, ScreenPosition position, int bricksVerticalGap, int bricksHorizontalGap) {
+    private BricksGridGdxRender(BricksGrid model, ScreenPosition centerPosition, int bricksVerticalGap, int bricksHorizontalGap) {
 
         this.model = model;
-        screenPosition = position;
+        this.centerPosition = centerPosition;
         this.bricksVerticalGap = bricksVerticalGap;
         this.bricksHorizontalGap = bricksHorizontalGap;
 
-        this.setPosition(position.getX(), position.getY());
+        gridScreenSize = ObjectSize.COLLAPSED;
+        this.setPosition(centerPosition.getX(), centerPosition.getY());
     }
 
     public static BricksGridRendering forModel(BricksGrid model) {
@@ -43,18 +46,22 @@ public class BricksGridGdxRender extends Group {
         return bricksHorizontalGap;
     }
 
+    public ObjectSize onScreenSize() {
+        return gridScreenSize;
+    }
+
     public class BricksLandscape {
 
-        private final Map<ScreenPosition, BrickGdxRender> gridBricksPositions;
+        private final Set<BrickGdxRender> positionedGridBricks;
 
         private BricksLandscape() {
             var gridRender = BricksGridGdxRender.this;
-            this.gridBricksPositions = new ConcurrentHashMap<>();
+            this.positionedGridBricks = ConcurrentHashMap.newKeySet();
 
         }
 
         public int size() {
-            return gridBricksPositions.size();
+            return positionedGridBricks.size();
         }
     }
 
@@ -72,7 +79,7 @@ public class BricksGridGdxRender extends Group {
             this.bricksHorizontalGap = 0;
         }
 
-        public BricksGridRendering atPosition(ScreenPosition screenPosition) {
+        public BricksGridRendering centeredAt(ScreenPosition screenPosition) {
             this.gridPosition = screenPosition;
             return this;
         }
