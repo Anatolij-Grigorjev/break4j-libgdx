@@ -5,6 +5,7 @@ import com.tiem625.break4j.model.bricks.SimpleBrick;
 import java.util.Map;
 import java.util.Optional;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.stream.Stream;
 
 import static com.tiem625.break4j.tools.Verifiers.verifiedNotNull;
 import static java.lang.String.format;
@@ -32,6 +33,10 @@ public class BricksGrid {
     public Optional<SimpleBrick> checkBrickAt(GridPosition position) {
         return Optional.of(verifiedNotNull(position))
                 .map(bricksInGrid::get);
+    }
+
+    public Stream<SimpleBrick> bricks() {
+        return bricksInGrid.values().stream();
     }
 
     public Optional<SimpleBrick> removeBrick(GridPosition position) {

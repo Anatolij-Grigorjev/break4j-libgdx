@@ -27,6 +27,10 @@ public class BrickGdxRender extends Actor {
         this.model = verifiedNotNull(model);
     }
 
+    public static BrickGdxRender renderModel(SimpleBrick model) {
+        return new BrickGdxRender(model, Color.WHITE);
+    }
+
     public Texture brickTexture() {
         return brickTexture;
     }

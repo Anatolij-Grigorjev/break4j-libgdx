@@ -55,9 +55,10 @@ public class BricksGridGdxRender extends Group {
         private final Set<BrickGdxRender> positionedGridBricks;
 
         private BricksLandscape() {
-            var gridRender = BricksGridGdxRender.this;
             this.positionedGridBricks = ConcurrentHashMap.newKeySet();
-
+            model.bricks()
+                    .map(BrickGdxRender::renderModel)
+                    .forEach(positionedGridBricks::add);
         }
 
         public int size() {

@@ -51,4 +51,12 @@ public class BrickGdxRenderTests {
         assertEquals(render.getModelId(), model.getId());
     }
 
+    @Test
+    public void render_model_default_color_white() {
+        var model = new SimpleBrick();
+        BrickGdxRender render = BrickGdxRender.renderModel(model);
+
+        assertEquals(Color.WHITE, render.getColor());
+    }
+
 }
