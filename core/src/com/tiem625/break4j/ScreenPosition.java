@@ -7,23 +7,23 @@ public class ScreenPosition {
 
     public static final ScreenPosition ORIGIN = new ScreenPosition(0, 0);
 
-    private final int x;
-    private final int y;
+    private final float x;
+    private final float y;
 
-    public static ScreenPosition at(int x, int y) {
+    public static ScreenPosition at(float x, float y) {
         return new ScreenPosition(x, y);
     }
 
-    private ScreenPosition(int x, int y) {
+    private ScreenPosition(float x, float y) {
         this.x = x;
         this.y = y;
     }
 
-    public int getX() {
+    public float getX() {
         return x;
     }
 
-    public int getY() {
+    public float getY() {
         return y;
     }
 

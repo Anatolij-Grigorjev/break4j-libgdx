@@ -28,4 +28,16 @@ public class GridDimensionsTests {
     public void same_dimensions_equal_objects() {
         assertEquals(GridDimensions.COLLAPSED, GridDimensions.rowsAndCols(0, 0));
     }
+
+    @Test
+    public void dimensions_have_0_is_collapsed_true() {
+        assertTrue(GridDimensions.COLLAPSED.isCollapsed());
+        assertTrue(GridDimensions.rowsAndCols(0, 6).isCollapsed());
+        assertTrue(GridDimensions.rowsAndCols(6, 0).isCollapsed());
+    }
+
+    @Test
+    public void dimensions_not_0_not_collapsed() {
+        assertFalse(GridDimensions.rowsAndCols(1, 1).isCollapsed());
+    }
 }

@@ -39,6 +39,10 @@ public class BricksGrid {
         return bricksInGrid.values().stream();
     }
 
+    public GridDimensions dimensions() {
+        return gridSize;
+    }
+
     public Optional<SimpleBrick> removeBrick(GridPosition position) {
         verifyGridPositionNotOutOfBounds(verifiedNotNull(position));
         return Optional.of(verifiedNotNull(position))

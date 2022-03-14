@@ -49,4 +49,8 @@ public class GridDimensions {
     public boolean isOutOfBounds(GridPosition gridPosition) {
         return gridPosition.row() >= numRows || gridPosition.col() >= numCols;
     }
+
+    public boolean isCollapsed() {
+        return cols() <= 0 || rows() <= 0;
+    }
 }

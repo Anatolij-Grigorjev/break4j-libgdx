@@ -5,10 +5,12 @@ import com.tiem625.break4j.ObjectSize;
 import com.tiem625.break4j.ScreenPosition;
 import com.tiem625.break4j.gdx.bricks.BrickGdxRender;
 import com.tiem625.break4j.model.grid.BricksGrid;
+import com.tiem625.break4j.model.grid.GridDimensions;
 
 import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 
+import static com.tiem625.break4j.gdx.bricks.BrickGdxRender.BRICK_ONSCREEN_SIZE;
 import static com.tiem625.break4j.tools.Verifiers.verifiedNotNull;
 
 public class BricksGridGdxRender extends Group {
@@ -26,8 +28,9 @@ public class BricksGridGdxRender extends Group {
         this.bricksVerticalGap = bricksVerticalGap;
         this.bricksHorizontalGap = bricksHorizontalGap;
 
-        gridScreenSize = ObjectSize.COLLAPSED;
-        this.setPosition(centerPosition.getX(), centerPosition.getY());
+        gridScreenSize = calculateGridOnscreenSize(model.dimensions(), bricksHorizontalGap, bricksVerticalGap);
+        ScreenPosition gridBottomLeftCornerPosition = calculateGridCornerPosition(gridScreenSize, centerPosition);
+        this.setPosition(gridBottomLeftCornerPosition.getX(), gridBottomLeftCornerPosition.getY());
     }
 
     public static BricksGridRendering forModel(BricksGrid model) {
@@ -48,6 +51,28 @@ public class BricksGridGdxRender extends Group {
 
     public ObjectSize onScreenSize() {
         return gridScreenSize;
+    }
+
+    private ObjectSize calculateGridOnscreenSize(GridDimensions gridDimensions, int bricksHorizontalGap, int bricksVerticalGap) {
+        if (gridDimensions.isCollapsed()) {
+            return ObjectSize.COLLAPSED;
+        }
+
+        var numRows = gridDimensions.rows();
+        var numCols = gridDimensions.cols();
+
+        return ObjectSize.widthAndHeight(
+                numRows * BRICK_ONSCREEN_SIZE.getWidth() + bricksHorizontalGap * (numCols - 1),
+                numCols * BRICK_ONSCREEN_SIZE.getHeight() + bricksVerticalGap * (numRows - 1)
+        );
+    }
+
+    private ScreenPosition calculateGridCornerPosition(ObjectSize gridOnscreenSize, ScreenPosition centerPosition) {
+
+        return centerPosition.offsetBy(ScreenPosition.at(
+                gridOnscreenSize.getWidth() / (-2.0f),
+                gridOnscreenSize.getHeight() / (-2.0f)
+        ));
     }
 
     public class BricksLandscape {
