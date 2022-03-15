@@ -9,6 +9,7 @@ import com.tiem625.break4j.model.grid.GridDimensions;
 
 import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.stream.Stream;
 
 import static com.tiem625.break4j.gdx.bricks.BrickGdxRender.BRICK_ONSCREEN_SIZE;
 import static com.tiem625.break4j.tools.Verifiers.verifiedNotNull;
@@ -20,6 +21,7 @@ public class BricksGridGdxRender extends Group {
     private final ObjectSize gridScreenSize;
     private final int bricksVerticalGap;
     private final int bricksHorizontalGap;
+    private final BricksLandscape bricksLandscape;
 
     private BricksGridGdxRender(BricksGrid model, ScreenPosition centerPosition, int bricksVerticalGap, int bricksHorizontalGap) {
 
@@ -30,6 +32,8 @@ public class BricksGridGdxRender extends Group {
 
         gridScreenSize = calculateGridOnscreenSize(model.dimensions(), bricksHorizontalGap, bricksVerticalGap);
         ScreenPosition gridBottomLeftCornerPosition = calculateGridCornerPosition(gridScreenSize, centerPosition);
+        bricksLandscape  = new BricksLandscape();
+
         this.setPosition(gridBottomLeftCornerPosition.getX(), gridBottomLeftCornerPosition.getY());
     }
 
@@ -38,7 +42,7 @@ public class BricksGridGdxRender extends Group {
     }
 
     public BricksLandscape getCurrentBricksLandscape() {
-        return new BricksLandscape();
+        return bricksLandscape;
     }
 
     public int getVerticalGap() {
@@ -51,6 +55,10 @@ public class BricksGridGdxRender extends Group {
 
     public ObjectSize onScreenSize() {
         return gridScreenSize;
+    }
+
+    public ScreenPosition onScreenCenter() {
+        return centerPosition;
     }
 
     private ObjectSize calculateGridOnscreenSize(GridDimensions gridDimensions, int bricksHorizontalGap, int bricksVerticalGap) {
@@ -88,6 +96,10 @@ public class BricksGridGdxRender extends Group {
 
         public int size() {
             return positionedGridBricks.size();
+        }
+
+        public Stream<BrickGdxRender> stream() {
+            return positionedGridBricks.stream();
         }
     }
 
