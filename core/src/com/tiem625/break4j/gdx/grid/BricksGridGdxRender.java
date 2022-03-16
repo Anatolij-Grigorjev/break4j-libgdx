@@ -4,8 +4,10 @@ import com.badlogic.gdx.scenes.scene2d.Group;
 import com.tiem625.break4j.ObjectSize;
 import com.tiem625.break4j.ScreenPosition;
 import com.tiem625.break4j.gdx.bricks.BrickGdxRender;
+import com.tiem625.break4j.model.bricks.SimpleBrick;
 import com.tiem625.break4j.model.grid.BricksGrid;
 import com.tiem625.break4j.model.grid.GridDimensions;
+import com.tiem625.break4j.model.grid.GridPosition;
 
 import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
@@ -32,9 +34,9 @@ public class BricksGridGdxRender extends Group {
 
         gridScreenSize = calculateGridOnscreenSize(model.dimensions(), bricksHorizontalGap, bricksVerticalGap);
         ScreenPosition gridBottomLeftCornerPosition = calculateGridCornerPosition(gridScreenSize, centerPosition);
-        bricksLandscape  = new BricksLandscape();
-
         this.setPosition(gridBottomLeftCornerPosition.getX(), gridBottomLeftCornerPosition.getY());
+
+        bricksLandscape  = new BricksLandscape();
     }
 
     public static BricksGridRendering forModel(BricksGrid model) {
@@ -59,6 +61,10 @@ public class BricksGridGdxRender extends Group {
 
     public ScreenPosition onScreenCenter() {
         return centerPosition;
+    }
+
+    public ScreenPosition lowerLeftCornerPosition() {
+        return ScreenPosition.at(getX(), getY());
     }
 
     private ObjectSize calculateGridOnscreenSize(GridDimensions gridDimensions, int bricksHorizontalGap, int bricksVerticalGap) {
@@ -89,8 +95,9 @@ public class BricksGridGdxRender extends Group {
 
         private BricksLandscape() {
             this.positionedGridBricks = ConcurrentHashMap.newKeySet();
-            model.bricks()
-                    .map(BrickGdxRender::renderModel)
+            model.slottedBricks()
+                    .map(slottedBrick -> renderBrickAtPositionInGridRender(slottedBrick.brick, slottedBrick.slot))
+                    .peek(BricksGridGdxRender.this::addActor)
                     .forEach(positionedGridBricks::add);
         }
 
@@ -100,6 +107,19 @@ public class BricksGridGdxRender extends Group {
 
         public Stream<BrickGdxRender> stream() {
             return positionedGridBricks.stream();
+        }
+
+        private BrickGdxRender renderBrickAtPositionInGridRender(SimpleBrick brick, GridPosition gridPosition) {
+            var brickRender = BrickGdxRender.renderModel(brick);
+
+            var gridRenderOrigin = lowerLeftCornerPosition();
+
+            brickRender.setPosition(
+                    gridRenderOrigin.getX() + gridPosition.col() * (BRICK_ONSCREEN_SIZE.getWidth() + bricksHorizontalGap),
+                    gridRenderOrigin.getY() + gridPosition.row() * (BRICK_ONSCREEN_SIZE.getHeight() + bricksVerticalGap)
+            );
+
+            return brickRender;
         }
     }
 

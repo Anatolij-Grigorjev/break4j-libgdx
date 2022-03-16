@@ -35,8 +35,9 @@ public class BricksGrid {
                 .map(bricksInGrid::get);
     }
 
-    public Stream<SimpleBrick> bricks() {
-        return bricksInGrid.values().stream();
+    public Stream<SlottedBrick> slottedBricks() {
+        return bricksInGrid.entrySet().stream()
+                .map(entry -> new SlottedBrick(entry.getValue(), entry.getKey()));
     }
 
     public GridDimensions dimensions() {
@@ -52,6 +53,17 @@ public class BricksGrid {
     private void verifyGridPositionNotOutOfBounds(GridPosition gridPosition) {
         if (gridSize.isOutOfBounds(gridPosition)) {
             throw new IllegalArgumentException(format("position %s is out of bounds for grid of size %s!", gridPosition, gridSize));
+        }
+    }
+
+    public static class SlottedBrick {
+
+        public final SimpleBrick brick;
+        public final GridPosition slot;
+
+        public SlottedBrick(SimpleBrick brick, GridPosition slot) {
+            this.brick = brick;
+            this.slot = slot;
         }
     }
 }

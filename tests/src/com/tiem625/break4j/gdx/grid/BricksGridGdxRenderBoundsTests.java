@@ -144,11 +144,36 @@ public class BricksGridGdxRenderBoundsTests {
         assertLandscapeHasBrickWithPosition(landscape, 10f, 5f);
     }
 
+    @Test
+    public void grid_gaps_and_offset_affecting_bricks() {
+
+        var model = buildGridWithDimensionsAndBricksAtPositions(2, 2, Set.of(
+                GridPosition.atGridOffset(0, 0),
+                GridPosition.atGridOffset(0, 1),
+                GridPosition.atGridOffset(1, 0),
+                GridPosition.atGridOffset(1, 1)
+        ));
+
+        var render = BricksGridGdxRender.forModel(model)
+                .withHorizontalGap(10)
+                .withVerticalGap(5)
+                .centeredAt(ScreenPosition.at(100, 100))
+                .render();
+        var landscape = render.getCurrentBricksLandscape();
+
+        assertLandscapeHasBrickWithPosition(landscape, 10f, 10f);
+        assertLandscapeHasBrickWithPosition(landscape, 10f, 15f);
+        assertLandscapeHasBrickWithPosition(landscape, 110f, 10f);
+        assertLandscapeHasBrickWithPosition(landscape, 110f, 15f);
+    }
+
 
 
 
     private void assertLandscapeHasBrickWithPosition(BricksLandscape landscape, float x, float y) {
-        assertTrue(landscape.stream().anyMatch(brick -> brick.getX() == x && brick.getY() == y));
+        assertTrue(landscape.stream()
+                .peek(System.out::println)
+                .anyMatch(brick -> brick.getX() == x && brick.getY() == y));
     }
 
     private BricksGrid buildGridWithDimensionsAndBricksAtPositions(int rows, int cols, Set<GridPosition> positions) {

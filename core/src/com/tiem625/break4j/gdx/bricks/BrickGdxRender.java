@@ -42,4 +42,9 @@ public class BrickGdxRender extends Actor {
     public OId getModelId() {
         return model.getId();
     }
+
+    @Override
+    public String toString() {
+        return String.format("%s brick at (%s;%s)", getColor(), getX(), getY());
+    }
 }
