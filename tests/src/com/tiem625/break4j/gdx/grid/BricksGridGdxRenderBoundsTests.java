@@ -96,9 +96,9 @@ public class BricksGridGdxRenderBoundsTests {
         var landscape = render.getCurrentBricksLandscape();
 
         assertLandscapeHasBrickWithPosition(landscape, 0f, 0f);
-        assertLandscapeHasBrickWithPosition(landscape, 0f, 90f);
-        assertLandscapeHasBrickWithPosition(landscape, 90f, 0f);
-        assertLandscapeHasBrickWithPosition(landscape, 90f, 90f);
+        assertLandscapeHasBrickWithPosition(landscape, 0f, -90f);
+        assertLandscapeHasBrickWithPosition(landscape, -90f, 0f);
+        assertLandscapeHasBrickWithPosition(landscape, -90f, -90f);
     }
 
     @Test
@@ -138,10 +138,10 @@ public class BricksGridGdxRenderBoundsTests {
                 .render();
         var landscape = render.getCurrentBricksLandscape();
 
-        assertLandscapeHasBrickWithPosition(landscape, -90f, -90f);
-        assertLandscapeHasBrickWithPosition(landscape, -90f, 5f);
-        assertLandscapeHasBrickWithPosition(landscape, 10f, -90f);
-        assertLandscapeHasBrickWithPosition(landscape, 10f, 5f);
+        assertLandscapeHasBrickWithPosition(landscape, -95f, -92.5f);
+        assertLandscapeHasBrickWithPosition(landscape, -95f, 2.5f);
+        assertLandscapeHasBrickWithPosition(landscape, 5f, -92.5f);
+        assertLandscapeHasBrickWithPosition(landscape, 5f, 2.5f);
     }
 
     @Test
@@ -161,10 +161,10 @@ public class BricksGridGdxRenderBoundsTests {
                 .render();
         var landscape = render.getCurrentBricksLandscape();
 
-        assertLandscapeHasBrickWithPosition(landscape, 10f, 10f);
-        assertLandscapeHasBrickWithPosition(landscape, 10f, 15f);
-        assertLandscapeHasBrickWithPosition(landscape, 110f, 10f);
-        assertLandscapeHasBrickWithPosition(landscape, 110f, 15f);
+        assertLandscapeHasBrickWithPosition(landscape, 5f, 7.5f);
+        assertLandscapeHasBrickWithPosition(landscape, 5f, 102.5f);
+        assertLandscapeHasBrickWithPosition(landscape, 105f, 102.5f);
+        assertLandscapeHasBrickWithPosition(landscape, 105f, 7.5f);
     }
 
 
