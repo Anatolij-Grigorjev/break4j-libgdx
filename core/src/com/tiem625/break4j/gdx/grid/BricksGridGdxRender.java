@@ -118,7 +118,7 @@ public class BricksGridGdxRender extends Group {
                     gridRenderOrigin.getX() + gridPosition.col() * (BRICK_ONSCREEN_SIZE.getWidth() + bricksHorizontalGap),
                     gridRenderOrigin.getY() + gridPosition.row() * (BRICK_ONSCREEN_SIZE.getHeight() + bricksVerticalGap)
             );
-
+            System.out.println(brickRender + " at " + gridPosition);
             return brickRender;
         }
     }
