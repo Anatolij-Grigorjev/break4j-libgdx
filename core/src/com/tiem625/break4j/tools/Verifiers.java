@@ -18,4 +18,11 @@ public class Verifiers {
         }
         return num;
     }
+
+    public static float verifyNotNegative(float num) {
+        if (num < 0.0f) {
+            throw new IllegalArgumentException("number was below zero: " + num);
+        }
+        return num;
+    }
 }

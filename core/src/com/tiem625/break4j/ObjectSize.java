@@ -8,23 +8,23 @@ public class ObjectSize {
 
     public static final ObjectSize COLLAPSED = new ObjectSize(0, 0);
 
-    private final int width;
-    private final int height;
+    private final float width;
+    private final float height;
 
-    public static ObjectSize widthAndHeight(int width, int height) {
+    public static ObjectSize widthAndHeight(float width, float height) {
         return new ObjectSize(verifyNotNegative(width), verifyNotNegative(height));
     }
 
-    private ObjectSize(int width, int height) {
+    private ObjectSize(float width, float height) {
         this.width = width;
         this.height = height;
     }
 
-    public int getWidth() {
+    public float getWidth() {
         return width;
     }
 
-    public int getHeight() {
+    public float getHeight() {
         return height;
     }
 

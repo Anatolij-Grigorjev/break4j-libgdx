@@ -2,6 +2,7 @@ package com.tiem625.break4j.gdx.bricks;
 
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.tiem625.break4j.ObjectSize;
 import com.tiem625.break4j.model.bricks.SimpleBrick;
@@ -41,6 +42,22 @@ public class BrickGdxRender extends Actor {
 
     public OId getModelId() {
         return model.getId();
+    }
+
+    @Override
+    public void draw(Batch batch, float parentAlpha) {
+        var brickColor = getColor();
+        batch.setColor(brickColor.r, brickColor.g, brickColor.b, brickColor.a * parentAlpha);
+        batch.draw(brickTexture,
+                getX(), getY(),
+                getOriginX(), getOriginY(),
+                BRICK_ONSCREEN_SIZE.getWidth(), BRICK_ONSCREEN_SIZE.getHeight(),
+                getScaleX(), getScaleY(),
+                getRotation(),
+                0, 0,
+                (int) BRICK_ONSCREEN_SIZE.getWidth(), (int) BRICK_ONSCREEN_SIZE.getHeight(),
+                false, false
+        );
     }
 
     @Override
