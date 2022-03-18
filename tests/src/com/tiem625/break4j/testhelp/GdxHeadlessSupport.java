@@ -10,10 +10,13 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.backends.headless.HeadlessApplication;
 import com.badlogic.gdx.backends.headless.HeadlessApplicationConfiguration;
 import com.badlogic.gdx.graphics.GL20;
+import com.badlogic.gdx.graphics.GL30;
 import org.junit.jupiter.api.extension.BeforeEachCallback;
 import org.junit.jupiter.api.extension.ExtensionContext;
 
+import static org.mockito.ArgumentMatchers.anyInt;
 import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 
 public class GdxHeadlessSupport implements ApplicationListener, BeforeEachCallback {
 
@@ -21,7 +24,11 @@ public class GdxHeadlessSupport implements ApplicationListener, BeforeEachCallba
         HeadlessApplicationConfiguration conf = new HeadlessApplicationConfiguration();
 
         new HeadlessApplication(this, conf);
-        Gdx.gl = mock(GL20.class);
+        Gdx.gl20 = mock(GL20.class);
+        Gdx.gl30 = mock(GL30.class);
+        Gdx.gl = Gdx.gl20;
+        //create shaders for shape renderer
+        when(Gdx.gl20.glCreateShader(anyInt())).thenReturn(0);
         Gdx.files = new GdxFilesHeadlessSpy(Gdx.files);
     }
 

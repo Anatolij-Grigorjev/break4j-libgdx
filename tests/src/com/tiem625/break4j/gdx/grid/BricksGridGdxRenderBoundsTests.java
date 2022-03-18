@@ -43,6 +43,8 @@ public class BricksGridGdxRenderBoundsTests {
         assertEquals(55f, gridRender.getX());
         assertEquals(55f, gridRender.getY());
         assertEquals(ObjectSize.widthAndHeight(90, 90), gridRender.onScreenSize());
+        assertEquals(90, gridRender.getWidth());
+        assertEquals(90, gridRender.getHeight());
     }
 
     @Test
@@ -55,6 +57,8 @@ public class BricksGridGdxRenderBoundsTests {
         assertEquals(10f, gridRender.getX());
         assertEquals(10f, gridRender.getY());
         assertEquals(ObjectSize.widthAndHeight(180, 180), gridRender.onScreenSize());
+        assertEquals(180, gridRender.getWidth());
+        assertEquals(180, gridRender.getHeight());
     }
 
     @Test
@@ -69,6 +73,8 @@ public class BricksGridGdxRenderBoundsTests {
         assertEquals(-45f, gridRender.getX());
         assertEquals(-40f, gridRender.getY());
         assertEquals(ObjectSize.widthAndHeight(290, 280), gridRender.onScreenSize());
+        assertEquals(290, gridRender.getWidth());
+        assertEquals(280, gridRender.getHeight());
     }
 
     @Test
@@ -79,7 +85,7 @@ public class BricksGridGdxRenderBoundsTests {
         var render = BricksGridGdxRender.forModel(model1Brick).render();
         var positionedBricks = render.getCurrentBricksLandscape();
 
-        assertLandscapeHasBrickWithPosition(positionedBricks, render.getX(), render.getY());
+        assertLandscapeHasBrickWithPosition(positionedBricks, 0, 0);
     }
 
     @Test
@@ -96,13 +102,13 @@ public class BricksGridGdxRenderBoundsTests {
         var landscape = render.getCurrentBricksLandscape();
 
         assertLandscapeHasBrickWithPosition(landscape, 0f, 0f);
-        assertLandscapeHasBrickWithPosition(landscape, 0f, -90f);
-        assertLandscapeHasBrickWithPosition(landscape, -90f, 0f);
-        assertLandscapeHasBrickWithPosition(landscape, -90f, -90f);
+        assertLandscapeHasBrickWithPosition(landscape, 0f, 90f);
+        assertLandscapeHasBrickWithPosition(landscape, 90f, 0f);
+        assertLandscapeHasBrickWithPosition(landscape, 90f, 90f);
     }
 
     @Test
-    public void grid_screen_offset_bricks_affected() {
+    public void grid_screen_offset_bricks_not_affected() {
 
         var model = buildGridWithDimensionsAndBricksAtPositions(2, 2, Set.of(
                 GridPosition.atGridOffset(0, 0),
@@ -116,10 +122,10 @@ public class BricksGridGdxRenderBoundsTests {
                 .render();
         var landscape = render.getCurrentBricksLandscape();
 
-        assertLandscapeHasBrickWithPosition(landscape, 10f, 10f);
-        assertLandscapeHasBrickWithPosition(landscape, 10f, 100f);
-        assertLandscapeHasBrickWithPosition(landscape, 100f, 10f);
-        assertLandscapeHasBrickWithPosition(landscape, 100f, 100f);
+        assertLandscapeHasBrickWithPosition(landscape, 0f, 0f);
+        assertLandscapeHasBrickWithPosition(landscape, 0f, 90f);
+        assertLandscapeHasBrickWithPosition(landscape, 90f, 0f);
+        assertLandscapeHasBrickWithPosition(landscape, 90f, 90f);
     }
 
     @Test
@@ -138,10 +144,10 @@ public class BricksGridGdxRenderBoundsTests {
                 .render();
         var landscape = render.getCurrentBricksLandscape();
 
-        assertLandscapeHasBrickWithPosition(landscape, -95f, -92.5f);
-        assertLandscapeHasBrickWithPosition(landscape, -95f, 2.5f);
-        assertLandscapeHasBrickWithPosition(landscape, 5f, -92.5f);
-        assertLandscapeHasBrickWithPosition(landscape, 5f, 2.5f);
+        assertLandscapeHasBrickWithPosition(landscape, 100, 95);
+        assertLandscapeHasBrickWithPosition(landscape, 100, 0);
+        assertLandscapeHasBrickWithPosition(landscape, 0, 95);
+        assertLandscapeHasBrickWithPosition(landscape, 0, 0);
     }
 
     @Test
@@ -161,10 +167,10 @@ public class BricksGridGdxRenderBoundsTests {
                 .render();
         var landscape = render.getCurrentBricksLandscape();
 
-        assertLandscapeHasBrickWithPosition(landscape, 5f, 7.5f);
-        assertLandscapeHasBrickWithPosition(landscape, 5f, 102.5f);
-        assertLandscapeHasBrickWithPosition(landscape, 105f, 102.5f);
-        assertLandscapeHasBrickWithPosition(landscape, 105f, 7.5f);
+        assertLandscapeHasBrickWithPosition(landscape, 0f, 0f);
+        assertLandscapeHasBrickWithPosition(landscape, 0f, 95f);
+        assertLandscapeHasBrickWithPosition(landscape, 100f, 95f);
+        assertLandscapeHasBrickWithPosition(landscape, 100f, 0f);
     }
 
 

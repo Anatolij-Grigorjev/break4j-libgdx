@@ -34,9 +34,11 @@ public class BricksGridGdxRender extends Group {
 
         gridScreenSize = calculateGridOnscreenSize(model.dimensions(), bricksHorizontalGap, bricksVerticalGap);
         ScreenPosition gridBottomLeftCornerPosition = calculateGridCornerPosition(gridScreenSize, centerPosition);
+        this.setWidth(gridScreenSize.getWidth());
+        this.setHeight(gridScreenSize.getHeight());
         this.setPosition(gridBottomLeftCornerPosition.getX(), gridBottomLeftCornerPosition.getY());
 
-        bricksLandscape  = new BricksLandscape();
+        bricksLandscape = new BricksLandscape();
     }
 
     public static BricksGridRendering forModel(BricksGrid model) {
@@ -112,13 +114,10 @@ public class BricksGridGdxRender extends Group {
         private BrickGdxRender renderBrickAtPositionInGridRender(SimpleBrick brick, GridPosition gridPosition) {
             var brickRender = BrickGdxRender.renderModel(brick);
 
-            var gridRenderOrigin = lowerLeftCornerPosition();
-
             brickRender.setPosition(
-                    gridRenderOrigin.getX() + gridPosition.col() * (BRICK_ONSCREEN_SIZE.getWidth() + bricksHorizontalGap),
-                    gridRenderOrigin.getY() + gridPosition.row() * (BRICK_ONSCREEN_SIZE.getHeight() + bricksVerticalGap)
+                    gridPosition.col() * (BRICK_ONSCREEN_SIZE.getWidth() + bricksHorizontalGap),
+                    gridPosition.row() * (BRICK_ONSCREEN_SIZE.getHeight() + bricksVerticalGap)
             );
-            System.out.println(brickRender + " at " + gridPosition);
             return brickRender;
         }
     }
