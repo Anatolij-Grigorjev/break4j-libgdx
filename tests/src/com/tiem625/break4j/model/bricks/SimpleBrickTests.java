@@ -24,8 +24,7 @@ public class SimpleBrickTests {
     public void brick_hit_by_ball_starts_breaking() {
 
         var brick = new SimpleBrick();
-        var ball  = new Ball();
-        ball.hitBrick(brick);
+        brick.hitByBall(new Ball());
 
         assertEquals(BrickStatesIds.BRICK_BREAKING, brick.getState().getId());
     }

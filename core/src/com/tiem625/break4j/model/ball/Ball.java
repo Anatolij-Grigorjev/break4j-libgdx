@@ -11,6 +11,6 @@ public class Ball {
     }
 
     public void hitBrick(SimpleBrick brick) {
-
+        brick.hitByBall(this);
     }
 }
