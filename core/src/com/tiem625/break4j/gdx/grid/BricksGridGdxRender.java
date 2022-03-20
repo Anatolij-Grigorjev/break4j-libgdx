@@ -34,8 +34,8 @@ public class BricksGridGdxRender extends Group {
 
         gridScreenSize = calculateGridOnscreenSize(model.dimensions(), bricksHorizontalGap, bricksVerticalGap);
         ScreenPosition gridBottomLeftCornerPosition = calculateGridCornerPosition(gridScreenSize, centerPosition);
-        this.setWidth(gridScreenSize.getWidth());
-        this.setHeight(gridScreenSize.getHeight());
+        this.setWidth(gridScreenSize.width());
+        this.setHeight(gridScreenSize.height());
         this.setPosition(gridBottomLeftCornerPosition.getX(), gridBottomLeftCornerPosition.getY());
 
         bricksLandscape = new BricksLandscape();
@@ -78,16 +78,16 @@ public class BricksGridGdxRender extends Group {
         var numCols = gridDimensions.cols();
 
         return ObjectSize.widthAndHeight(
-                numRows * BRICK_ONSCREEN_SIZE.getWidth() + bricksHorizontalGap * (numCols - 1),
-                numCols * BRICK_ONSCREEN_SIZE.getHeight() + bricksVerticalGap * (numRows - 1)
+                numRows * BRICK_ONSCREEN_SIZE.width() + bricksHorizontalGap * (numCols - 1),
+                numCols * BRICK_ONSCREEN_SIZE.height() + bricksVerticalGap * (numRows - 1)
         );
     }
 
     private ScreenPosition calculateGridCornerPosition(ObjectSize gridOnscreenSize, ScreenPosition centerPosition) {
 
         return centerPosition.offsetBy(ScreenPosition.at(
-                gridOnscreenSize.getWidth() / (-2.0f),
-                gridOnscreenSize.getHeight() / (-2.0f)
+                gridOnscreenSize.width() / (-2.0f),
+                gridOnscreenSize.height() / (-2.0f)
         ));
     }
 
@@ -115,8 +115,8 @@ public class BricksGridGdxRender extends Group {
             var brickRender = BrickGdxRender.renderModel(brick);
 
             brickRender.setPosition(
-                    gridPosition.col() * (BRICK_ONSCREEN_SIZE.getWidth() + bricksHorizontalGap),
-                    gridPosition.row() * (BRICK_ONSCREEN_SIZE.getHeight() + bricksVerticalGap)
+                    gridPosition.col() * (BRICK_ONSCREEN_SIZE.width() + bricksHorizontalGap),
+                    gridPosition.row() * (BRICK_ONSCREEN_SIZE.height() + bricksVerticalGap)
             );
             return brickRender;
         }

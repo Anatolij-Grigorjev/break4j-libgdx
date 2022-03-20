@@ -20,12 +20,20 @@ public class ObjectSize {
         this.height = height;
     }
 
-    public float getWidth() {
+    public float width() {
         return width;
     }
 
-    public float getHeight() {
+    public float height() {
         return height;
+    }
+
+    public ObjectSize scaledBy(float factor) {
+        return new ObjectSize(width * factor, height * factor);
+    }
+
+    public ObjectSize extendedBy(float width, float height) {
+        return new ObjectSize(this.width + width, this.height + height);
     }
 
     @Override

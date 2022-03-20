@@ -2,6 +2,7 @@ package com.tiem625.break4j.gdx.grid;
 
 import com.tiem625.break4j.ObjectSize;
 import com.tiem625.break4j.ScreenPosition;
+import com.tiem625.break4j.gdx.bricks.BrickGdxRender;
 import com.tiem625.break4j.gdx.grid.BricksGridGdxRender.BricksLandscape;
 import com.tiem625.break4j.model.bricks.SimpleBrick;
 import com.tiem625.break4j.model.grid.BricksGrid;
@@ -39,12 +40,13 @@ public class BricksGridGdxRenderBoundsTests {
         var gridRender = BricksGridGdxRender.forModel(model)
                 .centeredAt(ScreenPosition.at(100, 100))
                 .render();
+        var brickSize = BrickGdxRender.BRICK_ONSCREEN_SIZE;
 
-        assertEquals(55f, gridRender.getX());
-        assertEquals(55f, gridRender.getY());
-        assertEquals(ObjectSize.widthAndHeight(90, 90), gridRender.onScreenSize());
-        assertEquals(90, gridRender.getWidth());
-        assertEquals(90, gridRender.getHeight());
+        assertEquals(100f - brickSize.width() / 2, gridRender.getX());
+        assertEquals(100f - brickSize.height() / 2, gridRender.getY());
+        assertEquals(brickSize, gridRender.onScreenSize());
+        assertEquals(brickSize.width(), gridRender.getWidth());
+        assertEquals(brickSize.height(), gridRender.getHeight());
     }
 
     @Test
@@ -53,12 +55,14 @@ public class BricksGridGdxRenderBoundsTests {
         var gridRender = BricksGridGdxRender.forModel(model)
                 .centeredAt(ScreenPosition.at(100, 100))
                 .render();
+        var brickSize = BrickGdxRender.BRICK_ONSCREEN_SIZE;
 
-        assertEquals(10f, gridRender.getX());
-        assertEquals(10f, gridRender.getY());
-        assertEquals(ObjectSize.widthAndHeight(180, 180), gridRender.onScreenSize());
-        assertEquals(180, gridRender.getWidth());
-        assertEquals(180, gridRender.getHeight());
+        assertEquals(100f - brickSize.width(), gridRender.getX());
+        assertEquals(100f - brickSize.height(), gridRender.getY());
+        ObjectSize size2Bricks = brickSize.scaledBy(2);
+        assertEquals(size2Bricks, gridRender.onScreenSize());
+        assertEquals(size2Bricks.width(), gridRender.getWidth());
+        assertEquals(size2Bricks.height(), gridRender.getHeight());
     }
 
     @Test
@@ -69,12 +73,13 @@ public class BricksGridGdxRenderBoundsTests {
                 .withHorizontalGap(10)
                 .withVerticalGap(5)
                 .render();
+        var brickSize = BrickGdxRender.BRICK_ONSCREEN_SIZE;
 
-        assertEquals(-45f, gridRender.getX());
-        assertEquals(-40f, gridRender.getY());
-        assertEquals(ObjectSize.widthAndHeight(290, 280), gridRender.onScreenSize());
-        assertEquals(290, gridRender.getWidth());
-        assertEquals(280, gridRender.getHeight());
+        assertEquals(100f - brickSize.scaledBy(1.5f).width() - gridRender.getHorizontalGap(), gridRender.getX());
+        assertEquals(100f - brickSize.scaledBy(1.5f).height() - gridRender.getVerticalGap(), gridRender.getY());
+        assertEquals(brickSize.scaledBy(3).extendedBy(2 * 10, 2 * 5), gridRender.onScreenSize());
+        assertEquals(gridRender.onScreenSize().width(), gridRender.getWidth());
+        assertEquals(gridRender.onScreenSize().height(), gridRender.getHeight());
     }
 
     @Test
@@ -97,14 +102,15 @@ public class BricksGridGdxRenderBoundsTests {
                 GridPosition.atGridOffset(1, 0),
                 GridPosition.atGridOffset(1, 1)
         ));
+        var brickSize = BrickGdxRender.BRICK_ONSCREEN_SIZE;
 
         var render = BricksGridGdxRender.forModel(model).render();
         var landscape = render.getCurrentBricksLandscape();
 
         assertLandscapeHasBrickWithPosition(landscape, 0f, 0f);
-        assertLandscapeHasBrickWithPosition(landscape, 0f, 90f);
-        assertLandscapeHasBrickWithPosition(landscape, 90f, 0f);
-        assertLandscapeHasBrickWithPosition(landscape, 90f, 90f);
+        assertLandscapeHasBrickWithPosition(landscape, 0f, brickSize.height());
+        assertLandscapeHasBrickWithPosition(landscape, brickSize.width(), 0f);
+        assertLandscapeHasBrickWithPosition(landscape, brickSize.width(), brickSize.height());
     }
 
     @Test
@@ -116,6 +122,7 @@ public class BricksGridGdxRenderBoundsTests {
                 GridPosition.atGridOffset(1, 0),
                 GridPosition.atGridOffset(1, 1)
         ));
+        var brickSize = BrickGdxRender.BRICK_ONSCREEN_SIZE;
 
         var render = BricksGridGdxRender.forModel(model)
                 .centeredAt(ScreenPosition.at(100, 100))
@@ -123,9 +130,9 @@ public class BricksGridGdxRenderBoundsTests {
         var landscape = render.getCurrentBricksLandscape();
 
         assertLandscapeHasBrickWithPosition(landscape, 0f, 0f);
-        assertLandscapeHasBrickWithPosition(landscape, 0f, 90f);
-        assertLandscapeHasBrickWithPosition(landscape, 90f, 0f);
-        assertLandscapeHasBrickWithPosition(landscape, 90f, 90f);
+        assertLandscapeHasBrickWithPosition(landscape, 0f, brickSize.height());
+        assertLandscapeHasBrickWithPosition(landscape, brickSize.width(), 0f);
+        assertLandscapeHasBrickWithPosition(landscape, brickSize.width(), brickSize.height());
     }
 
     @Test
@@ -137,6 +144,7 @@ public class BricksGridGdxRenderBoundsTests {
                 GridPosition.atGridOffset(1, 0),
                 GridPosition.atGridOffset(1, 1)
         ));
+        var brickSize = BrickGdxRender.BRICK_ONSCREEN_SIZE;
 
         var render = BricksGridGdxRender.forModel(model)
                 .withHorizontalGap(10)
@@ -144,33 +152,10 @@ public class BricksGridGdxRenderBoundsTests {
                 .render();
         var landscape = render.getCurrentBricksLandscape();
 
-        assertLandscapeHasBrickWithPosition(landscape, 100, 95);
-        assertLandscapeHasBrickWithPosition(landscape, 100, 0);
-        assertLandscapeHasBrickWithPosition(landscape, 0, 95);
+        assertLandscapeHasBrickWithPosition(landscape, brickSize.width() + 10, brickSize.height() + 5);
+        assertLandscapeHasBrickWithPosition(landscape, brickSize.width() + 10, 0);
+        assertLandscapeHasBrickWithPosition(landscape, 0, brickSize.height() + 5);
         assertLandscapeHasBrickWithPosition(landscape, 0, 0);
-    }
-
-    @Test
-    public void grid_gaps_and_offset_affecting_bricks() {
-
-        var model = buildGridWithDimensionsAndBricksAtPositions(2, 2, Set.of(
-                GridPosition.atGridOffset(0, 0),
-                GridPosition.atGridOffset(0, 1),
-                GridPosition.atGridOffset(1, 0),
-                GridPosition.atGridOffset(1, 1)
-        ));
-
-        var render = BricksGridGdxRender.forModel(model)
-                .withHorizontalGap(10)
-                .withVerticalGap(5)
-                .centeredAt(ScreenPosition.at(100, 100))
-                .render();
-        var landscape = render.getCurrentBricksLandscape();
-
-        assertLandscapeHasBrickWithPosition(landscape, 0f, 0f);
-        assertLandscapeHasBrickWithPosition(landscape, 0f, 95f);
-        assertLandscapeHasBrickWithPosition(landscape, 100f, 95f);
-        assertLandscapeHasBrickWithPosition(landscape, 100f, 0f);
     }
 
 

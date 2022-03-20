@@ -28,4 +28,14 @@ public class ObjectSizeTests {
     public void size_same_dimensions_equal() {
         assertEquals(ObjectSize.widthAndHeight(0, 0), ObjectSize.COLLAPSED);
     }
+
+    @Test
+    public void size_scaled_affects_dimensions() {
+        assertEquals(ObjectSize.widthAndHeight(100, 100), ObjectSize.widthAndHeight(50, 50).scaledBy(2));
+    }
+
+    @Test
+    public void size_extended_adds_extension() {
+        assertEquals(ObjectSize.widthAndHeight(10, 5), ObjectSize.widthAndHeight(5, 0).extendedBy(5, 5));
+    }
 }

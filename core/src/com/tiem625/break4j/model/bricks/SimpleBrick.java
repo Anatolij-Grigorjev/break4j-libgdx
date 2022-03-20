@@ -1,7 +1,6 @@
 package com.tiem625.break4j.model.bricks;
 
 import com.tiem625.break4j.model.ObjectWithId;
-import com.tiem625.break4j.model.ball.Ball;
 import com.tiem625.break4j.tools.fsm.State;
 
 import java.util.Optional;
@@ -18,11 +17,11 @@ public class SimpleBrick extends ObjectWithId {
         fsm.process(deltaTime);
     }
 
-    public Optional<State> getState() {
-        return fsm.currentState();
+    public State getState() {
+        return fsm.currentState().get();
     }
 
-    public void hitByBall(Ball ball) {
-        fsm.setState(BrickStatesIds.BRICK_BREAKING);
+    public Optional<State> checkState() {
+        return fsm.currentState();
     }
 }

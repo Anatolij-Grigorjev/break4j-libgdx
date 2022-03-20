@@ -26,8 +26,8 @@ public class Break4jGameLoop extends ApplicationAdapter {
 		}
 		gridGdxRender = BricksGridGdxRender.forModel(model)
 				.centeredAt(ScreenPosition.at(Gdx.graphics.getWidth() / 2, Gdx.graphics.getHeight() / 2))
-				.withHorizontalGap(5)
-				.withVerticalGap(3)
+				.withHorizontalGap(0)
+				.withVerticalGap(0)
 				.render();
 	}
 

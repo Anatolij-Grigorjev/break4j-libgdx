@@ -13,7 +13,7 @@ import static com.tiem625.break4j.tools.Verifiers.verifiedNotNull;
 
 public class BrickGdxRender extends Actor {
 
-    public static final ObjectSize BRICK_ONSCREEN_SIZE = ObjectSize.widthAndHeight(90, 90);
+    public static final ObjectSize BRICK_ONSCREEN_SIZE = ObjectSize.widthAndHeight(64, 32);
     private static final String BRICK_TEXTURE_PATH = "brick.png";
 
     private final Texture brickTexture;
@@ -21,7 +21,7 @@ public class BrickGdxRender extends Actor {
 
     public BrickGdxRender(SimpleBrick model, Color brickColor) {
         setColor(verifiedNotNull(brickColor));
-        setSize(BRICK_ONSCREEN_SIZE.getWidth(), BRICK_ONSCREEN_SIZE.getHeight());
+        setSize(BRICK_ONSCREEN_SIZE.width(), BRICK_ONSCREEN_SIZE.height());
         brickTexture = AssetsLoader
                 .loadInternalDisposable(BRICK_TEXTURE_PATH, Texture::new)
                 .orElseThrow(IllegalStateException::new);
@@ -51,11 +51,11 @@ public class BrickGdxRender extends Actor {
         batch.draw(brickTexture,
                 getX(), getY(),
                 getOriginX(), getOriginY(),
-                BRICK_ONSCREEN_SIZE.getWidth(), BRICK_ONSCREEN_SIZE.getHeight(),
+                getWidth(), getHeight(),
                 getScaleX(), getScaleY(),
                 getRotation(),
                 0, 0,
-                (int) BRICK_ONSCREEN_SIZE.getWidth(), (int) BRICK_ONSCREEN_SIZE.getHeight(),
+                (int) BRICK_ONSCREEN_SIZE.width(), (int) BRICK_ONSCREEN_SIZE.height(),
                 false, false
         );
     }
