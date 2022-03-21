@@ -26,6 +26,7 @@ public class SimpleBrick extends ObjectWithId {
         return fsm.currentState();
     }
 
+    //called by ball
     public void hitByBall(Ball ball) {
         fsm.setState(BrickStatesIds.BRICK_BREAKING);
     }
