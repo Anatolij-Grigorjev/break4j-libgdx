@@ -1,6 +1,7 @@
 package com.tiem625.break4j.model.ball;
 
 import com.badlogic.gdx.math.Vector2;
+import com.tiem625.break4j.model.bricks.BrickSide;
 import com.tiem625.break4j.model.bricks.SimpleBrick;
 
 public class Ball {
@@ -15,7 +16,7 @@ public class Ball {
         return velocity;
     }
 
-    public void hitBrick(SimpleBrick brick) {
+    public void hitBrick(SimpleBrick brick, BrickSide hitSide) {
         brick.hitByBall(this);
         //TODO: add vector "bounce" with parameter to indicate brick hit side (for surface normal)
     }
