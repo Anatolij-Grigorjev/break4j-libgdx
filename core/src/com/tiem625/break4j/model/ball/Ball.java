@@ -18,10 +18,18 @@ public class Ball {
 
     public void hitBrick(SimpleBrick brick, BrickSide hitSide) {
         brick.hitByBall(this);
-        //TODO: add vector "bounce" with parameter to indicate brick hit side (for surface normal)
+        velocity = reflectVectorAcrossSurfaceNormal(velocity, hitSide.surfaceNormal());
     }
 
     public void addImpulse(Vector2 additiveImpulse) {
         velocity = velocity.add(additiveImpulse);
+    }
+
+
+    private Vector2 reflectVectorAcrossSurfaceNormal(Vector2 vector, Vector2 surfaceNormal) {
+        //   𝑟=𝑑−2(𝑑⋅𝑛)𝑛
+        var scalarCoef = 2 * surfaceNormal.dot(vector);
+        var substrVector = new Vector2(surfaceNormal.x, surfaceNormal.y).scl(scalarCoef);
+        return new Vector2(vector.x, vector.y).sub(substrVector);
     }
 }
