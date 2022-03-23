@@ -2,9 +2,10 @@ package com.tiem625.break4j.model.paddle;
 
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
+import com.tiem625.break4j.model.ObjectWithId;
 import com.tiem625.break4j.model.ball.Ball;
 
-public class Paddle {
+public class Paddle extends ObjectWithId {
 
 
     public void startShoveBall(Ball ball) {

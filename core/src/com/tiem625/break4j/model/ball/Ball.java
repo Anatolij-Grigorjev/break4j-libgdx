@@ -1,10 +1,11 @@
 package com.tiem625.break4j.model.ball;
 
 import com.badlogic.gdx.math.Vector2;
+import com.tiem625.break4j.model.ObjectWithId;
 import com.tiem625.break4j.model.bricks.BrickSide;
 import com.tiem625.break4j.model.bricks.SimpleBrick;
 
-public class Ball {
+public class Ball extends ObjectWithId {
 
     private final Velocity velocity;
 
