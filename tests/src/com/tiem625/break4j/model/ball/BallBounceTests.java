@@ -22,8 +22,8 @@ class BallBounceTests {
 
         ball.hitBrick(new SimpleBrick(), BrickSide.BOTTOM);
 
-        Assertions.assertNotEquals(Math.signum(ballInitVelocity.y), Math.signum(ball.getCurrentVelocity().y));
-        Assertions.assertTrue(Math.signum(ball.getCurrentVelocity().y) < 0);
+        Assertions.assertNotEquals(Math.signum(ballInitVelocity.y), Math.signum(ball.velocity().direction().y));
+        Assertions.assertTrue(Math.signum(ball.velocity().direction().y) < 0);
     }
 
     @Test
@@ -33,8 +33,8 @@ class BallBounceTests {
 
         ball.hitBrick(new SimpleBrick(), BrickSide.TOP);
 
-        Assertions.assertNotEquals(Math.signum(ballInitVelocity.y), Math.signum(ball.getCurrentVelocity().y));
-        Assertions.assertTrue(Math.signum(ball.getCurrentVelocity().y) > 0);
+        Assertions.assertNotEquals(Math.signum(ballInitVelocity.y), Math.signum(ball.velocity().direction().y));
+        Assertions.assertTrue(Math.signum(ball.velocity().direction().y) > 0);
     }
 
     @Test
@@ -44,8 +44,8 @@ class BallBounceTests {
 
         ball.hitBrick(new SimpleBrick(), BrickSide.LEFT);
 
-        Assertions.assertNotEquals(Math.signum(ballInitVelocity.x), Math.signum(ball.getCurrentVelocity().x));
-        Assertions.assertTrue(Math.signum(ball.getCurrentVelocity().x) < 0);
+        Assertions.assertNotEquals(Math.signum(ballInitVelocity.x), Math.signum(ball.velocity().direction().x));
+        Assertions.assertTrue(Math.signum(ball.velocity().direction().x) < 0);
     }
 
     @Test
@@ -55,7 +55,7 @@ class BallBounceTests {
 
         ball.hitBrick(new SimpleBrick(), BrickSide.RIGHT);
 
-        Assertions.assertNotEquals(Math.signum(ballInitVelocity.x), Math.signum(ball.getCurrentVelocity().x));
-        Assertions.assertTrue(Math.signum(ball.getCurrentVelocity().x) > 0);
+        Assertions.assertNotEquals(Math.signum(ballInitVelocity.x), Math.signum(ball.velocity().direction().x));
+        Assertions.assertTrue(Math.signum(ball.velocity().direction().x) > 0);
     }
 }

@@ -1,6 +1,5 @@
 package com.tiem625.break4j.model.ball;
 
-import com.badlogic.gdx.math.Vector2;
 import com.tiem625.break4j.model.bricks.BrickSide;
 import com.tiem625.break4j.model.bricks.SimpleBrick;
 import com.tiem625.break4j.model.paddle.Paddle;
@@ -17,7 +16,7 @@ public class BallTests {
 
         Ball ball = new Ball();
 
-        Assertions.assertEquals(new Vector2(), ball.getCurrentVelocity());
+        Assertions.assertTrue(ball.velocity().isInert());
     }
 
     @Test
@@ -28,7 +27,7 @@ public class BallTests {
 
         paddle.startShoveBall(ball);
 
-        Assertions.assertNotEquals(new Vector2(), ball.getCurrentVelocity());
+        Assertions.assertFalse(ball.velocity().isInert());
     }
 
     @Test
@@ -38,10 +37,10 @@ public class BallTests {
         var paddle = new Paddle();
         paddle.startShoveBall(ball);
 
-        var prevVelocity = ball.getCurrentVelocity();
+        var prevVelocity = ball.velocity().asVector();
         ball.hitBrick(new SimpleBrick(), BrickSide.BOTTOM);
 
-        Assertions.assertNotEquals(prevVelocity, ball.getCurrentVelocity());
+        Assertions.assertNotEquals(prevVelocity, ball.velocity().asVector());
     }
 
 }

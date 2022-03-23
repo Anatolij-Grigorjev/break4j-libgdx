@@ -6,30 +6,22 @@ import com.tiem625.break4j.model.bricks.SimpleBrick;
 
 public class Ball {
 
-    private Vector2 velocity;
+    private final Velocity velocity;
 
     public Ball() {
-        velocity = new Vector2();
+        velocity = Velocity.inert();
     }
 
-    public Vector2 getCurrentVelocity() {
+    public Velocity velocity() {
         return velocity;
     }
 
     public void hitBrick(SimpleBrick brick, BrickSide hitSide) {
         brick.hitByBall(this);
-        velocity = reflectVectorAcrossSurfaceNormal(velocity, hitSide.surfaceNormal());
+        velocity.bounce(hitSide.surfaceNormal());
     }
 
     public void addImpulse(Vector2 additiveImpulse) {
-        velocity = velocity.add(additiveImpulse);
-    }
-
-
-    private Vector2 reflectVectorAcrossSurfaceNormal(Vector2 vector, Vector2 surfaceNormal) {
-        //   𝑟=𝑑−2(𝑑⋅𝑛)𝑛
-        var scalarCoef = 2 * surfaceNormal.dot(vector);
-        var substrVector = new Vector2(surfaceNormal.x, surfaceNormal.y).scl(scalarCoef);
-        return new Vector2(vector.x, vector.y).sub(substrVector);
+        velocity.increaseBy(additiveImpulse);
     }
 }
