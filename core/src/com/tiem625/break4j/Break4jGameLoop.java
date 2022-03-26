@@ -3,8 +3,11 @@ package com.tiem625.break4j;
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.ScreenUtils;
+import com.tiem625.break4j.gdx.ball.BallGdxRender;
 import com.tiem625.break4j.gdx.grid.BricksGridGdxRender;
+import com.tiem625.break4j.model.ball.Ball;
 import com.tiem625.break4j.model.bricks.SimpleBrick;
 import com.tiem625.break4j.model.grid.BricksGrid;
 import com.tiem625.break4j.model.grid.GridDimensions;
@@ -14,6 +17,7 @@ import com.tiem625.break4j.tools.AssetsLoader;
 public class Break4jGameLoop extends ApplicationAdapter {
 	SpriteBatch batch;
 	BricksGridGdxRender gridGdxRender;
+	BallGdxRender ballGdxRender;
 	
 	@Override
 	public void create () {
@@ -29,13 +33,19 @@ public class Break4jGameLoop extends ApplicationAdapter {
 				.withHorizontalGap(0)
 				.withVerticalGap(0)
 				.render();
+		Ball ballModel = new Ball();
+		ballGdxRender = new BallGdxRender(ballModel);
+		ballGdxRender.setPosition(50, 50);
+		ballModel.addImpulse(new Vector2(10, 10));
 	}
 
 	@Override
 	public void render () {
+		ballGdxRender.act(Gdx.graphics.getDeltaTime());
 		ScreenUtils.clear(0, 0, 0, 1);
 		batch.begin();
 		gridGdxRender.draw(batch, 1.0f);
+		ballGdxRender.draw(batch, 1.0f);
 		batch.end();
 	}
 	
