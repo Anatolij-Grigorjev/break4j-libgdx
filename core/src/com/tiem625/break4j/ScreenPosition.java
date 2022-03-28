@@ -33,6 +33,12 @@ public class ScreenPosition {
                 .orElse(this);
     }
 
+    public ScreenPosition offsetBy(ObjectSize size) {
+        return Optional.ofNullable(size)
+                .map(presentSize -> offsetBy(ScreenPosition.at(size.width(), size.height())))
+                .orElse(this);
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

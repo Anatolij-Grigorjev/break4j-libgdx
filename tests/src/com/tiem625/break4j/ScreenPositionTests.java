@@ -26,8 +26,17 @@ public class ScreenPositionTests {
     }
 
     @Test
+    public void position_offset_by_size_adds_width_and_height() {
+        assertEquals(
+                ScreenPosition.at(5, 10),
+                ScreenPosition.ORIGIN.offsetBy(ObjectSize.widthAndHeight(5, 10))
+        );
+    }
+
+    @Test
     public void position_offset_by_null_same_position() {
-        assertEquals(ScreenPosition.ORIGIN, ScreenPosition.ORIGIN.offsetBy(null));
+        assertEquals(ScreenPosition.ORIGIN, ScreenPosition.ORIGIN.offsetBy((ScreenPosition) null));
+        assertEquals(ScreenPosition.ORIGIN, ScreenPosition.ORIGIN.offsetBy((ObjectSize) null));
     }
 
 }
