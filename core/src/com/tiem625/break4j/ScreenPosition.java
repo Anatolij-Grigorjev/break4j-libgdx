@@ -39,6 +39,22 @@ public class ScreenPosition {
                 .orElse(this);
     }
 
+    public boolean isBefore(ScreenPosition position) {
+        return x < position.x;
+    }
+
+    public boolean isAfter(ScreenPosition position) {
+        return x > position.x;
+    }
+
+    public boolean isAbove(ScreenPosition position) {
+        return y > position.y;
+    }
+
+    public boolean isBelow(ScreenPosition position) {
+        return y < position.y;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

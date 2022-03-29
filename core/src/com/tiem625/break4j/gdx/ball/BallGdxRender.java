@@ -54,13 +54,26 @@ public class BallGdxRender extends ModelGdxRender<Ball> {
 
     private BrickSide getCollisionSideWith(Rectangle brickBounds) {
 
-        var bottomLeft = position();
-        var topRight = position().offsetBy(BALL_ONSCREEN_SIZE);
+        var bounds = bounds();
+        var bottomLeft = ScreenPosition.at(bounds.getX(), bounds.getY());
+        var topRight = bottomLeft.offsetBy(BALL_ONSCREEN_SIZE);
 
         var brickBottomLeft = ScreenPosition.at(brickBounds.getX(), brickBounds.getY());
         var brickTopRight = ScreenPosition.at(brickBounds.x + brickBounds.width, brickBounds.y + brickBounds.height);
 
-        throw new UnsupportedOperationException("TODO");
+        boolean ballToTheLeft = bottomLeft.isBefore(brickBottomLeft);
+        if (ballToTheLeft) { return BrickSide.LEFT; }
+
+        boolean ballToTheRight = topRight.isAfter(brickTopRight);
+        if (ballToTheRight) { return BrickSide.RIGHT; }
+
+        boolean ballBelow = topRight.isBelow(brickTopRight);
+        if (ballBelow) { return BrickSide.BOTTOM; }
+
+        boolean ballAbove = bottomLeft.isAbove(brickBottomLeft);
+        if (ballAbove) { return BrickSide.TOP; }
+
+        throw new IllegalStateException("bounds " + bounds + " did not resolve with brick bounds " + brickBounds);
     }
 
 
