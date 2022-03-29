@@ -22,4 +22,8 @@ abstract public class ModelGdxRender<T extends ObjectWithId> extends Actor {
     public ScreenPosition position() {
         return ScreenPosition.at(getX(), getY());
     }
+
+    public T getModel() {
+        return model;
+    }
 }

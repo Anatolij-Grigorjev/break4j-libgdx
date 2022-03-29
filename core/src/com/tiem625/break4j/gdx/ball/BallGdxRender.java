@@ -52,6 +52,10 @@ public class BallGdxRender extends ModelGdxRender<Ball> {
         }
     }
 
+    public void doCollisionWith(BrickGdxRender brickGdxRender, BrickSide collisionSide) {
+        model.hitBrick(brickGdxRender.getModel(), collisionSide);
+    }
+
     private BrickSide getCollisionSideWith(Rectangle brickBounds) {
 
         var bounds = bounds();
