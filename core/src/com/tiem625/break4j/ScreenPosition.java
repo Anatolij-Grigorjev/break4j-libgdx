@@ -1,5 +1,7 @@
 package com.tiem625.break4j;
 
+import com.badlogic.gdx.math.Vector2;
+
 import java.util.Objects;
 import java.util.Optional;
 
@@ -31,6 +33,10 @@ public class ScreenPosition {
         return Optional.ofNullable(offset)
                 .map(presentOffset -> ScreenPosition.at(x + presentOffset.x, y + presentOffset.y))
                 .orElse(this);
+    }
+
+    public Vector2 asVector() {
+        return new Vector2(x(), y());
     }
 
     public ScreenPosition offsetBy(ObjectSize size) {

@@ -4,6 +4,7 @@ import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.utils.Logger;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.tiem625.break4j.gdx.ball.BallGdxRender;
 import com.tiem625.break4j.gdx.grid.BricksGridGdxRender;
@@ -18,6 +19,9 @@ import com.tiem625.break4j.tools.AssetsLoader;
 import java.util.Optional;
 
 public class Break4jGameLoop extends ApplicationAdapter {
+
+    private final static Logger logger = new Logger("MAIN-LOOP", Logger.DEBUG);
+
     SpriteBatch batch;
     BricksGridGdxRender gridGdxRender;
     BallGdxRender ballGdxRender;
@@ -48,7 +52,10 @@ public class Break4jGameLoop extends ApplicationAdapter {
         gridGdxRender.getCurrentBricksLandscape().stream()
                 .forEach(brickGdxRender -> {
                     Optional<BrickSide> brickSide = ballGdxRender.checkCollisionWith(brickGdxRender);
-                    brickSide.ifPresent(side -> ballGdxRender.doCollisionWith(brickGdxRender, side));
+                    brickSide.ifPresent(side -> {
+                        logger.info(String.format("ball at %s hit brick %s on side %s", ballGdxRender.globalBounds(), brickGdxRender.globalBounds(), side));
+                        ballGdxRender.doCollisionWith(brickGdxRender, side);
+                    });
                 });
         ScreenUtils.clear(0, 0, 0, 1);
         batch.begin();

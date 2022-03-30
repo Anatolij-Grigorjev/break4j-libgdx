@@ -42,8 +42,8 @@ public class BallGdxRender extends ModelGdxRender<Ball> {
     public Optional<BrickSide> checkCollisionWith(BrickGdxRender brickRender) {
         Verifiers.verifiedNotNull(brickRender);
 
-        var brickBounds = brickRender.bounds();
-        if (bounds().overlaps(brickBounds)) {
+        var brickBounds = brickRender.globalBounds();
+        if (globalBounds().overlaps(brickBounds)) {
 
             return Optional.of(getCollisionSideWith(brickBounds));
         } else {
@@ -58,7 +58,7 @@ public class BallGdxRender extends ModelGdxRender<Ball> {
 
     private BrickSide getCollisionSideWith(Rectangle brickBounds) {
 
-        var bounds = bounds();
+        var bounds = globalBounds();
         var bottomLeft = ScreenPosition.at(bounds.getX(), bounds.getY());
         var topRight = bottomLeft.offsetBy(BALL_ONSCREEN_SIZE);
 
