@@ -2,6 +2,7 @@ package com.tiem625.break4j.gdx;
 
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.scenes.scene2d.Actor;
+import com.tiem625.break4j.ObjectSize;
 import com.tiem625.break4j.ScreenPosition;
 import com.tiem625.break4j.model.ObjectWithId;
 
@@ -16,7 +17,13 @@ abstract public class ModelGdxRender<T extends ObjectWithId> extends Actor {
     }
 
     public Rectangle bounds() {
-        return new Rectangle(getX(), getY(), getWidth(), getHeight());
+        var position = position();
+        var size = size();
+        return new Rectangle(position.x(), position().y(), size.width(), size.height());
+    }
+
+    public ObjectSize size() {
+        return ObjectSize.widthAndHeight(getWidth(), getHeight());
     }
 
     public ScreenPosition position() {

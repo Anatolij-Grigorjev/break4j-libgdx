@@ -19,11 +19,11 @@ public class ScreenPosition {
         this.y = y;
     }
 
-    public float getX() {
+    public float x() {
         return x;
     }
 
-    public float getY() {
+    public float y() {
         return y;
     }
 

@@ -36,7 +36,7 @@ public class BricksGridGdxRender extends Group {
         ScreenPosition gridBottomLeftCornerPosition = calculateGridCornerPosition(gridScreenSize, centerPosition);
         this.setWidth(gridScreenSize.width());
         this.setHeight(gridScreenSize.height());
-        this.setPosition(gridBottomLeftCornerPosition.getX(), gridBottomLeftCornerPosition.getY());
+        this.setPosition(gridBottomLeftCornerPosition.x(), gridBottomLeftCornerPosition.y());
 
         bricksLandscape = new BricksLandscape();
     }
