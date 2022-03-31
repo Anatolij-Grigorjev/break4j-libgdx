@@ -1,6 +1,7 @@
 package com.tiem625.break4j;
 
 import com.badlogic.gdx.math.Vector2;
+import com.tiem625.break4j.tools.Verifiers;
 
 import java.util.Objects;
 import java.util.Optional;
@@ -14,6 +15,11 @@ public class ScreenPosition {
 
     public static ScreenPosition at(float x, float y) {
         return new ScreenPosition(x, y);
+    }
+
+    public static ScreenPosition fromVector(Vector2 position) {
+        var present = Verifiers.verifiedNotNull(position);
+        return new ScreenPosition(present.x, present.y);
     }
 
     private ScreenPosition(float x, float y) {

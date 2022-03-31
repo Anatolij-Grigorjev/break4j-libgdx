@@ -17,27 +17,32 @@ abstract public class ModelGdxRender<T extends ObjectWithId> extends Actor {
         this.model = verifiedNotNull(model);
     }
 
-    public Rectangle bounds() {
-        var position = position();
-        var size = size();
-        return new Rectangle(position.x(), position().y(), size.width(), size.height());
+    public Rectangle localBounds() {
+        return boundsRect(localPosition(), size());
     }
 
     public Rectangle globalBounds() {
-        Vector2 screenPos = localToStageCoordinates(position().asVector());
-        var size = size();
-        return new Rectangle(screenPos.x, screenPos.y, size.width(), size.height());
+        return boundsRect(globalPosition(), size());
     }
 
     public ObjectSize size() {
         return ObjectSize.widthAndHeight(getWidth(), getHeight());
     }
 
-    public ScreenPosition position() {
+    public ScreenPosition localPosition() {
         return ScreenPosition.at(getX(), getY());
+    }
+
+    public ScreenPosition globalPosition() {
+        return ScreenPosition.fromVector(localToStageCoordinates(new Vector2(getX(), getY())));
     }
 
     public T getModel() {
         return model;
+    }
+
+
+    private Rectangle boundsRect(ScreenPosition position, ObjectSize size) {
+        return new Rectangle(position.x(), position.y(), size.width(), size.height());
     }
 }

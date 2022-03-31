@@ -34,9 +34,10 @@ public class BricksGridGdxRender extends Group {
 
         gridScreenSize = calculateGridOnscreenSize(model.dimensions(), bricksHorizontalGap, bricksVerticalGap);
         ScreenPosition gridBottomLeftCornerPosition = calculateGridCornerPosition(gridScreenSize, centerPosition);
-        this.setWidth(gridScreenSize.width());
-        this.setHeight(gridScreenSize.height());
-        this.setPosition(gridBottomLeftCornerPosition.x(), gridBottomLeftCornerPosition.y());
+        this.setBounds(
+                gridBottomLeftCornerPosition.x(), gridBottomLeftCornerPosition.y(),
+                gridScreenSize.width(), gridScreenSize.height()
+        );
 
         bricksLandscape = new BricksLandscape();
     }

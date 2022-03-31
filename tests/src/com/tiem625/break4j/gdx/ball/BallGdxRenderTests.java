@@ -40,7 +40,7 @@ public class BallGdxRenderTests {
     @Test
     public void ball_collide_brick_above_side_bottom() {
         var ballRender = new BallGdxRender(new Ball());
-        Rectangle ballBounds = ballRender.bounds();
+        Rectangle ballBounds = ballRender.localBounds();
         var brickRender = BrickGdxRender.renderModel(new SimpleBrick());
         brickRender.setPosition(ballBounds.x, ballBounds.y + ballBounds.height - 2);
 
@@ -53,9 +53,9 @@ public class BallGdxRenderTests {
     @Test
     public void ball_collide_brick_below_side_top() {
         var ballRender = new BallGdxRender(new Ball());
-        Rectangle ballBounds = ballRender.bounds();
+        Rectangle ballBounds = ballRender.localBounds();
         var brickRender = BrickGdxRender.renderModel(new SimpleBrick());
-        brickRender.setPosition(ballBounds.x, ballBounds.y - brickRender.bounds().height + 2);
+        brickRender.setPosition(ballBounds.x, ballBounds.y - brickRender.localBounds().height + 2);
 
         Optional<BrickSide> collisionSide = ballRender.checkCollisionWith(brickRender);
 
@@ -66,7 +66,7 @@ public class BallGdxRenderTests {
     @Test
     public void ball_collide_brick_right_side_left() {
         var ballRender = new BallGdxRender(new Ball());
-        Rectangle ballBounds = ballRender.bounds();
+        Rectangle ballBounds = ballRender.localBounds();
         var brickRender = BrickGdxRender.renderModel(new SimpleBrick());
         brickRender.setPosition(ballBounds.x + ballBounds.width - 2, ballBounds.y);
 
@@ -79,9 +79,9 @@ public class BallGdxRenderTests {
     @Test
     public void ball_collide_brick_left_side_right() {
         var ballRender = new BallGdxRender(new Ball());
-        Rectangle ballBounds = ballRender.bounds();
+        Rectangle ballBounds = ballRender.localBounds();
         var brickRender = BrickGdxRender.renderModel(new SimpleBrick());
-        brickRender.setPosition(ballBounds.x - brickRender.bounds().width + 2, ballBounds.y);
+        brickRender.setPosition(ballBounds.x - brickRender.localBounds().width + 2, ballBounds.y);
 
         Optional<BrickSide> collisionSide = ballRender.checkCollisionWith(brickRender);
 
