@@ -1,6 +1,7 @@
 package com.tiem625.break4j.gdx.grid;
 
 import com.badlogic.gdx.scenes.scene2d.Group;
+import com.badlogic.gdx.utils.Logger;
 import com.tiem625.break4j.ObjectSize;
 import com.tiem625.break4j.ScreenPosition;
 import com.tiem625.break4j.gdx.bricks.BrickGdxRender;
@@ -17,6 +18,8 @@ import static com.tiem625.break4j.gdx.bricks.BrickGdxRender.BRICK_ONSCREEN_SIZE;
 import static com.tiem625.break4j.tools.Verifiers.verifiedNotNull;
 
 public class BricksGridGdxRender extends Group {
+
+    private final static Logger logger = new Logger("GRID", Logger.DEBUG);
 
     private final BricksGrid model;
     private final ScreenPosition centerPosition;
@@ -119,6 +122,12 @@ public class BricksGridGdxRender extends Group {
                     gridPosition.col() * (BRICK_ONSCREEN_SIZE.width() + bricksHorizontalGap),
                     gridPosition.row() * (BRICK_ONSCREEN_SIZE.height() + bricksVerticalGap)
             );
+
+            logger.info(String.format("brick id=%s localpos: %s stagepos: %s",
+                    brick.getId(),
+                    brickRender.localPosition().offsetBy(lowerLeftCornerPosition()), brickRender.globalPosition().offsetBy(lowerLeftCornerPosition()))
+            );
+
             return brickRender;
         }
     }
