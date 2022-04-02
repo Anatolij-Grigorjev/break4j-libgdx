@@ -3,7 +3,6 @@ package com.tiem625.break4j.gdx.grid;
 import com.tiem625.break4j.ObjectSize;
 import com.tiem625.break4j.ScreenPosition;
 import com.tiem625.break4j.gdx.bricks.BrickGdxRender;
-import com.tiem625.break4j.gdx.grid.BricksGridGdxRender.BricksLandscape;
 import com.tiem625.break4j.model.bricks.SimpleBrick;
 import com.tiem625.break4j.model.grid.BricksGrid;
 import com.tiem625.break4j.model.grid.GridDimensions;
@@ -161,10 +160,11 @@ public class BricksGridGdxRenderBoundsTests {
 
 
 
-    private void assertLandscapeHasBrickWithPosition(BricksLandscape landscape, float x, float y) {
+    private void assertLandscapeHasBrickWithPosition(GridGdxBricksLandscape landscape, float x, float y) {
         assertTrue(landscape.stream()
                 .peek(System.out::println)
-                .anyMatch(brick -> brick.getX() == x && brick.getY() == y));
+                .anyMatch(brick -> brick.getBrickRender().localPosition().equals(ScreenPosition.at(x, y)))
+        );
     }
 
     private BricksGrid buildGridWithDimensionsAndBricksAtPositions(int rows, int cols, Set<GridPosition> positions) {

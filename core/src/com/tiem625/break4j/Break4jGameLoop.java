@@ -63,10 +63,9 @@ public class Break4jGameLoop extends ApplicationAdapter {
         ballGdxRender.act(Gdx.graphics.getDeltaTime());
         gridGdxRender.getCurrentBricksLandscape().stream()
                 .forEach(brickGdxRender -> {
-                    Optional<BrickSide> brickSide = ballGdxRender.checkCollisionWith(brickGdxRender);
+                    Optional<BrickSide> brickSide = ballGdxRender.checkCollisionWith(brickGdxRender.getBrickRender());
                     brickSide.ifPresent(side -> {
-                        logger.info(String.format("ball at %s hit brick %s on side %s", ballGdxRender.globalBounds(), brickGdxRender.globalBounds(), side));
-                        ballGdxRender.doCollisionWith(brickGdxRender, side);
+                        ballGdxRender.doCollisionWith(brickGdxRender.getBrickRender(), side);
                     });
                 });
         ScreenUtils.clear(0, 0, 0, 1);

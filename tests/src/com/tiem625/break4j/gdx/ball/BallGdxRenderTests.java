@@ -53,7 +53,7 @@ public class BallGdxRenderTests {
     @Test
     public void ball_collide_brick_below_side_top() {
         var ballRender = new BallGdxRender(new Ball());
-        Rectangle ballBounds = ballRender.localBounds();
+        Rectangle ballBounds = ballRender.globalBounds();
         var brickRender = BrickGdxRender.renderModel(new SimpleBrick());
         brickRender.setPosition(ballBounds.x, ballBounds.y - brickRender.localBounds().height + 2);
 

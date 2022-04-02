@@ -1,6 +1,7 @@
 package com.tiem625.break4j.model.grid;
 
 import java.util.Objects;
+import java.util.Set;
 
 import static com.tiem625.break4j.tools.Verifiers.verifyNotNegative;
 import static java.lang.String.format;
@@ -18,6 +19,16 @@ public class GridDimensions {
     private GridDimensions(int numRows, int numCols) {
         this.numRows = numRows;
         this.numCols = numCols;
+    }
+
+    public static GridDimensions containingAll(Set<GridPosition> gridPositions) {
+        if (gridPositions == null || gridPositions.isEmpty()) {
+            return COLLAPSED;
+        }
+        return new GridDimensions(
+            gridPositions.stream().mapToInt(GridPosition::row).max().orElse(-1) + 1,
+            gridPositions.stream().mapToInt(GridPosition::col).max().orElse(-1) + 1
+        );
     }
 
     public int rows() {

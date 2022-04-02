@@ -4,15 +4,8 @@ import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.utils.Logger;
 import com.tiem625.break4j.ObjectSize;
 import com.tiem625.break4j.ScreenPosition;
-import com.tiem625.break4j.gdx.bricks.BrickGdxRender;
-import com.tiem625.break4j.model.bricks.SimpleBrick;
 import com.tiem625.break4j.model.grid.BricksGrid;
 import com.tiem625.break4j.model.grid.GridDimensions;
-import com.tiem625.break4j.model.grid.GridPosition;
-
-import java.util.Set;
-import java.util.concurrent.ConcurrentHashMap;
-import java.util.stream.Stream;
 
 import static com.tiem625.break4j.gdx.bricks.BrickGdxRender.BRICK_ONSCREEN_SIZE;
 import static com.tiem625.break4j.tools.Verifiers.verifiedNotNull;
@@ -26,7 +19,7 @@ public class BricksGridGdxRender extends Group {
     private final ObjectSize gridScreenSize;
     private final int bricksVerticalGap;
     private final int bricksHorizontalGap;
-    private final BricksLandscape bricksLandscape;
+    private final GridGdxBricksLandscape bricksLandscape;
 
     private BricksGridGdxRender(BricksGrid model, ScreenPosition centerPosition, int bricksVerticalGap, int bricksHorizontalGap) {
 
@@ -42,14 +35,14 @@ public class BricksGridGdxRender extends Group {
                 gridScreenSize.width(), gridScreenSize.height()
         );
 
-        bricksLandscape = new BricksLandscape();
+        bricksLandscape = new GridGdxBricksLandscape(this);
     }
 
     public static BricksGridRendering forModel(BricksGrid model) {
         return new BricksGridRendering(model);
     }
 
-    public BricksLandscape getCurrentBricksLandscape() {
+    public GridGdxBricksLandscape getCurrentBricksLandscape() {
         return bricksLandscape;
     }
 
@@ -67,6 +60,10 @@ public class BricksGridGdxRender extends Group {
 
     public ScreenPosition onScreenCenter() {
         return centerPosition;
+    }
+
+    public BricksGrid getModel() {
+        return model;
     }
 
     public ScreenPosition lowerLeftCornerPosition() {
@@ -93,43 +90,6 @@ public class BricksGridGdxRender extends Group {
                 gridOnscreenSize.width() / (-2.0f),
                 gridOnscreenSize.height() / (-2.0f)
         ));
-    }
-
-    public class BricksLandscape {
-
-        private final Set<BrickGdxRender> positionedGridBricks;
-
-        private BricksLandscape() {
-            this.positionedGridBricks = ConcurrentHashMap.newKeySet();
-            model.slottedBricks()
-                    .map(slottedBrick -> renderBrickAtPositionInGridRender(slottedBrick.brick, slottedBrick.slot))
-                    .peek(BricksGridGdxRender.this::addActor)
-                    .forEach(positionedGridBricks::add);
-        }
-
-        public int size() {
-            return positionedGridBricks.size();
-        }
-
-        public Stream<BrickGdxRender> stream() {
-            return positionedGridBricks.stream();
-        }
-
-        private BrickGdxRender renderBrickAtPositionInGridRender(SimpleBrick brick, GridPosition gridPosition) {
-            var brickRender = BrickGdxRender.renderModel(brick);
-
-            brickRender.setPosition(
-                    gridPosition.col() * (BRICK_ONSCREEN_SIZE.width() + bricksHorizontalGap),
-                    gridPosition.row() * (BRICK_ONSCREEN_SIZE.height() + bricksVerticalGap)
-            );
-
-            logger.info(String.format("brick id=%s localpos: %s stagepos: %s",
-                    brick.getId(),
-                    brickRender.localPosition().offsetBy(lowerLeftCornerPosition()), brickRender.globalPosition().offsetBy(lowerLeftCornerPosition()))
-            );
-
-            return brickRender;
-        }
     }
 
     public static class BricksGridRendering {

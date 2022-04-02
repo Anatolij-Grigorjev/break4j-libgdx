@@ -1,10 +1,8 @@
 package com.tiem625.break4j.gdx.grid;
 
 import com.tiem625.break4j.ScreenPosition;
-import com.tiem625.break4j.model.bricks.SimpleBrick;
 import com.tiem625.break4j.model.grid.BricksGrid;
 import com.tiem625.break4j.model.grid.GridDimensions;
-import com.tiem625.break4j.model.grid.GridPosition;
 import com.tiem625.break4j.testhelp.GdxHeadlessSupport;
 import org.junit.jupiter.api.DisplayNameGeneration;
 import org.junit.jupiter.api.DisplayNameGenerator;
@@ -54,15 +52,5 @@ public class BricksGridGdxRenderTests {
         assertEquals(100f, render.getX());
         assertEquals(5, render.getHorizontalGap());
         assertEquals(10, render.getVerticalGap());
-    }
-
-    @Test
-    public void create_grid_render_model_has_bricks_render_has_same_bricks() {
-
-        var modelGrid = new BricksGrid(GridDimensions.rowsAndCols(1, 1));
-        modelGrid.setBrick(GridPosition.ORIGIN, new SimpleBrick());
-
-        var gridRender = BricksGridGdxRender.forModel(modelGrid).render();
-        assertEquals(modelGrid.getCurrentNumBricks(), gridRender.getCurrentBricksLandscape().size());
     }
 }
