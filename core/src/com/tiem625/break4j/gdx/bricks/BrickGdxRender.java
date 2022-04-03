@@ -35,10 +35,6 @@ public class BrickGdxRender extends ModelGdxRender<SimpleBrick> {
         return brickTexture;
     }
 
-    public ObjectSize brickSize() {
-        return BRICK_ONSCREEN_SIZE;
-    }
-
     public OId getModelId() {
         return model.getId();
     }

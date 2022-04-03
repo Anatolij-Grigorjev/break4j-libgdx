@@ -39,7 +39,7 @@ public class BrickGdxRenderTests {
         BrickGdxRender brickRender = new BrickGdxRender(new SimpleBrick(), Color.YELLOW);
 
         assertNotNull(brickRender.brickTexture());
-        assertEquals(BrickGdxRender.BRICK_ONSCREEN_SIZE, brickRender.brickSize());
+        assertEquals(BrickGdxRender.BRICK_ONSCREEN_SIZE, brickRender.size());
     }
 
     @Test
