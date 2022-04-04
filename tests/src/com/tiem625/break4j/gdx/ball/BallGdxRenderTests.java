@@ -1,23 +1,32 @@
 package com.tiem625.break4j.gdx.ball;
 
-import com.badlogic.gdx.math.Rectangle;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.scenes.scene2d.Actor;
+import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.utils.viewport.Viewport;
 import com.tiem625.break4j.ScreenPosition;
 import com.tiem625.break4j.gdx.bricks.BrickGdxRender;
 import com.tiem625.break4j.model.ball.Ball;
 import com.tiem625.break4j.model.bricks.BrickSide;
 import com.tiem625.break4j.model.bricks.SimpleBrick;
 import com.tiem625.break4j.testhelp.GdxHeadlessSupport;
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.DisplayNameGeneration;
-import org.junit.jupiter.api.DisplayNameGenerator;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.*;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.Mockito;
 
+import java.util.Arrays;
 import java.util.Optional;
 
 @ExtendWith(GdxHeadlessSupport.class)
 @DisplayNameGeneration(DisplayNameGenerator.ReplaceUnderscores.class)
 public class BallGdxRenderTests {
+
+    private Stage stage;
+
+    @BeforeEach
+    public void setupEmptyStage() {
+        stage = new Stage(Mockito.mock(Viewport.class), Mockito.mock(SpriteBatch.class));
+    }
 
     @Test
     public void ball_collide_null_illegal_arg() {
@@ -31,10 +40,12 @@ public class BallGdxRenderTests {
     public void ball_collide_farawar_brick_empty_return() {
 
         var ballRender = new BallGdxRender(new Ball());
-
         var brickRender = BrickGdxRender.renderModel(new SimpleBrick());
+        setElementsToStage(ballRender, brickRender);
+        //ball at (0;0)
+        ballRender.setLocalPosition(ScreenPosition.ORIGIN);
         //move brick away
-        brickRender.setPosition(500, 500);
+        brickRender.setLocalPosition(ScreenPosition.at(500, 500));
 
         Optional<BrickSide> collisionSide = ballRender.checkCollisionWith(brickRender);
 
@@ -44,9 +55,13 @@ public class BallGdxRenderTests {
     @Test
     public void ball_collide_brick_above_side_bottom() {
         var ballRender = new BallGdxRender(new Ball());
-        Rectangle ballBounds = ballRender.globalBounds();
         var brickRender = BrickGdxRender.renderModel(new SimpleBrick());
-        brickRender.setGlobalPosition(ScreenPosition.at(ballBounds.x, ballBounds.y + ballBounds.height - 2));
+        setElementsToStage(ballRender, brickRender);
+        //ball at (0;0)
+        ballRender.setLocalPosition(ScreenPosition.ORIGIN);
+        //move brick just above ball
+        var ballBounds = ballRender.localBounds();
+        brickRender.setLocalPosition(ScreenPosition.at(ballBounds.x, ballBounds.y + ballBounds.height - 2));
 
         Optional<BrickSide> collisionSide = ballRender.checkCollisionWith(brickRender);
 
@@ -58,9 +73,13 @@ public class BallGdxRenderTests {
     public void ball_collide_brick_below_side_top() {
 
         var ballRender = new BallGdxRender(new Ball());
-        Rectangle ballBounds = ballRender.globalBounds();
         var brickRender = BrickGdxRender.renderModel(new SimpleBrick());
-        brickRender.setGlobalPosition(ScreenPosition.at(ballBounds.x, ballBounds.y - brickRender.size().height() + 2));
+        setElementsToStage(ballRender, brickRender);
+        //ball at (0;0)
+        ballRender.setLocalPosition(ScreenPosition.ORIGIN);
+        //move brick just below ball
+        var ballBounds = ballRender.localBounds();
+        brickRender.setLocalPosition(ScreenPosition.at(ballBounds.x, ballBounds.y - brickRender.size().height() + 2));
 
         Optional<BrickSide> collisionSide = ballRender.checkCollisionWith(brickRender);
 
@@ -71,9 +90,13 @@ public class BallGdxRenderTests {
     @Test
     public void ball_collide_brick_right_side_left() {
         var ballRender = new BallGdxRender(new Ball());
-        Rectangle ballBounds = ballRender.globalBounds();
         var brickRender = BrickGdxRender.renderModel(new SimpleBrick());
-        brickRender.setGlobalPosition(ScreenPosition.at(ballBounds.x + ballBounds.width - 2, ballBounds.y));
+        setElementsToStage(ballRender, brickRender);
+        //ball at (0;0)
+        ballRender.setLocalPosition(ScreenPosition.ORIGIN);
+        //move brick just to the right of ball
+        var ballBounds = ballRender.localBounds();
+        brickRender.setLocalPosition(ScreenPosition.at(ballBounds.x + ballBounds.width - 2, ballBounds.y));
 
         Optional<BrickSide> collisionSide = ballRender.checkCollisionWith(brickRender);
 
@@ -84,13 +107,26 @@ public class BallGdxRenderTests {
     @Test
     public void ball_collide_brick_left_side_right() {
         var ballRender = new BallGdxRender(new Ball());
-        Rectangle ballBounds = ballRender.globalBounds();
         var brickRender = BrickGdxRender.renderModel(new SimpleBrick());
-        brickRender.setGlobalPosition(ScreenPosition.at(ballBounds.x - brickRender.size().width() + 2, ballBounds.y));
+        setElementsToStage(ballRender, brickRender);
+        //ball at (0;0)
+        ballRender.setLocalPosition(ScreenPosition.ORIGIN);
+        //move brick just to the left of ball
+        var ballBounds = ballRender.localBounds();
+        brickRender.setLocalPosition(ScreenPosition.at(ballBounds.x - brickRender.size().width() + 2, ballBounds.y));
 
         Optional<BrickSide> collisionSide = ballRender.checkCollisionWith(brickRender);
 
         Assertions.assertTrue(collisionSide.isPresent());
         Assertions.assertEquals(BrickSide.RIGHT, collisionSide.get());
+    }
+
+
+
+
+
+
+    private void setElementsToStage(Actor... actors) {
+        Arrays.stream(actors).forEach(stage::addActor);
     }
 }

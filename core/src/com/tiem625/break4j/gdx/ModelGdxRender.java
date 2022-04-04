@@ -8,7 +8,6 @@ import com.tiem625.break4j.ScreenPosition;
 import com.tiem625.break4j.model.ObjectWithId;
 
 import static com.tiem625.break4j.tools.Verifiers.verifiedNotNull;
-import static java.util.Optional.ofNullable;
 
 abstract public class ModelGdxRender<T extends ObjectWithId> extends Actor {
 
@@ -34,14 +33,12 @@ abstract public class ModelGdxRender<T extends ObjectWithId> extends Actor {
         return ScreenPosition.at(getX(), getY());
     }
 
-    public ScreenPosition globalPosition() {
-        return ScreenPosition.fromVector(localToStageCoordinates(new Vector2(getX(), getY())));
+    public void setLocalPosition(ScreenPosition position) {
+        setPosition(position.x(), position.y());
     }
 
-    public void setGlobalPosition(ScreenPosition position) {
-        Vector2 coordsAsVector = ofNullable(position).map(ScreenPosition::asVector).orElse(Vector2.Zero);
-        var localCoords = stageToLocalCoordinates(coordsAsVector);
-        setPosition(localCoords.x, localCoords.y);
+    public ScreenPosition globalPosition() {
+        return ScreenPosition.fromVector(localToStageCoordinates(new Vector2(getX(), getY())));
     }
 
     public T getModel() {
