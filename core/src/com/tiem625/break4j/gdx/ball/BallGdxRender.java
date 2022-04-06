@@ -42,10 +42,14 @@ public class BallGdxRender extends ModelGdxRender<Ball> {
     public Optional<BrickSide> checkCollisionWith(BrickGdxRender brickRender) {
         Verifiers.verifiedNotNull(brickRender);
 
+        //decide correct objects bounds
+        var ballBounds = globalBounds();
         var brickBounds = brickRender.globalBounds();
-        if (globalBounds().overlaps(brickBounds)) {
 
-            return Optional.of(getCollisionSideWith(brickBounds));
+        //check collision
+        if (ballBounds.overlaps(brickBounds)) {
+
+            return Optional.of(getCollisionSideBetween(ballBounds, brickBounds));
         } else {
 
             return Optional.empty();
@@ -56,10 +60,9 @@ public class BallGdxRender extends ModelGdxRender<Ball> {
         model.hitBrick(brickGdxRender.getModel(), collisionSide);
     }
 
-    private BrickSide getCollisionSideWith(Rectangle brickBounds) {
+    private static BrickSide getCollisionSideBetween(Rectangle ballBounds, Rectangle brickBounds) {
 
-        var bounds = globalBounds();
-        var bottomLeft = ScreenPosition.at(bounds.getX(), bounds.getY());
+        var bottomLeft = ScreenPosition.at(ballBounds.getX(), ballBounds.getY());
         var topRight = bottomLeft.offsetBy(BALL_ONSCREEN_SIZE);
 
         var brickBottomLeft = ScreenPosition.at(brickBounds.getX(), brickBounds.getY());
@@ -77,7 +80,7 @@ public class BallGdxRender extends ModelGdxRender<Ball> {
         boolean ballAbove = bottomLeft.isAbove(brickBottomLeft);
         if (ballAbove) { return BrickSide.TOP; }
 
-        throw new IllegalStateException("bounds " + bounds + " did not resolve with brick bounds " + brickBounds);
+        throw new IllegalStateException("bounds " + ballBounds + " did not resolve with brick bounds " + brickBounds);
     }
 
 
