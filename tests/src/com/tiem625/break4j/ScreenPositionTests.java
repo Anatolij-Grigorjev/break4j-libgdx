@@ -65,4 +65,14 @@ public class ScreenPositionTests {
         assertTrue(ScreenPosition.at(0, 5).isBelow(ScreenPosition.at(0, 6)));
         assertTrue(ScreenPosition.at(0, 5).isBelow(ScreenPosition.at(-7, 6)));
     }
+
+    @Test
+    public void position_mirrored_symmetry_of_origin() {
+        assertEquals(ScreenPosition.at(-50, -50), ScreenPosition.at(50, 50).mirrored());
+    }
+
+    @Test
+    public void position_origin_mirror_itself() {
+        assertEquals(ScreenPosition.ORIGIN, ScreenPosition.ORIGIN.mirrored());
+    }
 }

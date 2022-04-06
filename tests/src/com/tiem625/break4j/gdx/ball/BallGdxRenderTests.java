@@ -136,7 +136,9 @@ public class BallGdxRenderTests {
         ballRender.setLocalPosition(ScreenPosition.ORIGIN);
         //move brick just above ball
         var ballBounds = ballRender.localBounds();
-        brickRender.setLocalPosition(ScreenPosition.at(ballBounds.x, ballBounds.y + ballBounds.height - 2));
+        ScreenPosition groupOffset = ScreenPosition.at(50, 50);
+        brickRender.setLocalPosition(ScreenPosition.at(ballBounds.x, ballBounds.y + ballBounds.height - 2).offsetBy(groupOffset.mirrored()));
+        brickGroup.setPosition(groupOffset.x(), groupOffset.y());
 
 
         Optional<BrickSide> collisionSide = ballRender.checkCollisionWith(brickRender);

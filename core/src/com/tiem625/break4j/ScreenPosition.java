@@ -84,4 +84,8 @@ public class ScreenPosition {
     public String toString() {
         return "(" + x + "," + y + ")";
     }
+
+    public ScreenPosition mirrored() {
+        return ScreenPosition.at(-x(), -y());
+    }
 }
