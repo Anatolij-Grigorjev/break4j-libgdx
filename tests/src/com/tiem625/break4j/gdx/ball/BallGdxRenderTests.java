@@ -2,6 +2,7 @@ package com.tiem625.break4j.gdx.ball;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.Actor;
+import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.tiem625.break4j.ScreenPosition;
@@ -21,11 +22,11 @@ import java.util.Optional;
 @DisplayNameGeneration(DisplayNameGenerator.ReplaceUnderscores.class)
 public class BallGdxRenderTests {
 
-    private Stage stage;
+    private Stage rootStage;
 
     @BeforeEach
     public void setupEmptyStage() {
-        stage = new Stage(Mockito.mock(Viewport.class), Mockito.mock(SpriteBatch.class));
+        rootStage = mockStage();
     }
 
     @Test
@@ -122,11 +123,38 @@ public class BallGdxRenderTests {
     }
 
 
+    @Test
+    public void ball_brick_different_groups_collision_checked_ok() {
+        var ballRender = new BallGdxRender(new Ball());
+        var brickRender = BrickGdxRender.renderModel(new SimpleBrick());
+
+        var brickGroup = new Group();
+        brickGroup.addActor(brickRender);
+
+        setElementsToStage(ballRender, brickGroup);
+        //ball at (0;0)
+        ballRender.setLocalPosition(ScreenPosition.ORIGIN);
+        //move brick just above ball
+        var ballBounds = ballRender.localBounds();
+        brickRender.setLocalPosition(ScreenPosition.at(ballBounds.x, ballBounds.y + ballBounds.height - 2));
+
+
+        Optional<BrickSide> collisionSide = ballRender.checkCollisionWith(brickRender);
+
+        Assertions.assertTrue(collisionSide.isPresent());
+        Assertions.assertEquals(BrickSide.BOTTOM, collisionSide.get());
+    }
 
 
 
+    private Stage mockStage() {
+        return new Stage(Mockito.mock(Viewport.class), Mockito.mock(SpriteBatch.class));
+    }
 
     private void setElementsToStage(Actor... actors) {
+        setElementsToStage(rootStage, actors);
+    }
+    private void setElementsToStage(Stage stage, Actor... actors) {
         Arrays.stream(actors).forEach(stage::addActor);
     }
 }
