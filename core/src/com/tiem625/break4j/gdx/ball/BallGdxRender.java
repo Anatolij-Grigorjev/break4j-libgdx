@@ -43,8 +43,16 @@ public class BallGdxRender extends ModelGdxRender<Ball> {
         Verifiers.verifiedNotNull(brickRender);
 
         //decide correct objects bounds
-        var ballBounds = globalBounds();
-        var brickBounds = brickRender.globalBounds();
+        final Rectangle ballBounds;
+        final Rectangle brickBounds;
+        if (getParent() == brickRender.getParent()) {
+            ballBounds = this.localBounds();
+            brickBounds = brickRender.localBounds();
+        } else {
+            brickBounds = brickRender.localBounds();
+            var ballRelativePos = localToActorCoordinates(brickRender.getParent(), localPosition().asVector());
+            ballBounds = new Rectangle(ballRelativePos.x, ballRelativePos.y, BALL_ONSCREEN_SIZE.width(), BALL_ONSCREEN_SIZE.height());
+        }
 
         //check collision
         if (ballBounds.overlaps(brickBounds)) {
