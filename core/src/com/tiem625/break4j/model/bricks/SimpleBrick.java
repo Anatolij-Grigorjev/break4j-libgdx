@@ -30,4 +30,9 @@ public class SimpleBrick extends ObjectWithId {
     public void hitByBall(Ball ball) {
         fsm.setState(BrickStatesIds.BRICK_BREAKING);
     }
+
+    @Override
+    public String toString() {
+        return String.format("[%s|id=%s]", getClass().getSimpleName(), id);
+    }
 }

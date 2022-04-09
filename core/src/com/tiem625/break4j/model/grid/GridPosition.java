@@ -48,6 +48,6 @@ public class GridPosition {
 
     @Override
     public String toString() {
-        return format("(%s;%s)", row, col);
+        return format("<%s:%s>", row, col);
     }
 }

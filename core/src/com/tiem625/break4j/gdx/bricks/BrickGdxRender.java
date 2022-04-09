@@ -57,6 +57,6 @@ public class BrickGdxRender extends ModelGdxRender<SimpleBrick> {
 
     @Override
     public String toString() {
-        return String.format("%s brick at (%s;%s)", getColor(), getX(), getY());
+        return String.format("[%s at %s]", getModel(), localPosition());
     }
 }
